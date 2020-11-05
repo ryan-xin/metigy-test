@@ -56,4 +56,15 @@ app.get('/settings', (req, res) => {
   res.json(settings);
 });
 
+app.get('/test', (req, res) => {
+  // const table = 'sample';
+  db.query('select * from sample', (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.send(results);
+    }
+  });
+});
+
 
