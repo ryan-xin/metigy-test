@@ -1,4 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import DesktopWindows from '@material-ui/icons/DesktopWindows';
+import '../style/components.css';
+import makeStyles from '@material-ui/styles/makeStyles';
+
+const useStyles = makeStyles({
+  removeButton: {
+    color: "#ffffff", 
+    borderColor: "#233952", 
+    textTransform: "capitalize",
+    "&:hover": {
+      borderColor: "#ffffff"
+    }
+  },
+  addButton: {
+    color: "#ffffff", 
+    background: "#00a94d", 
+    textTransform: "capitalize",
+    "&:hover": {
+      background: "#009946"
+    }
+  }
+})
 
 const Sites = () => {
   const starterSites = [
@@ -25,11 +51,12 @@ const Sites = () => {
   };
   
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setSites([
-      ...sites, newSite
-    ]);
-    setNewSite('');
+    if (newSite !== '') {
+      setSites([
+        ...sites, newSite
+      ]);
+      setNewSite('');
+    }
   };
   
   const handleClear = (index) => {
@@ -38,22 +65,48 @@ const Sites = () => {
     setSites(currentSites);
   };
   
+  const classes = useStyles();
+  
   return (
-    <div>
-      <h2>Sites</h2>
-      <form>
-        <input type="text" name="sitess" placeholder="Enter your site here" value={newSite} onChange={handleChange} />
-        <input type="submit" value="Add" onClick={handleSubmit} />
-      </form>
-      <ul>
-        {sites.map((site, index) => 
-          <li key={index}>
-            <p>{site}</p>
-            <button onClick={() => handleClear(index)}>Clear</button>
-          </li>
-        )}
-      </ul>
-    </div>
+    <Grid container direction="column" spacing={2} className="component-container">
+      <Grid item className="sub-heading">
+        <Grid container spacing={1}>
+          <Grid item>
+            <DesktopWindows className="desktop-icon" />
+          </Grid>
+          <Grid item>
+            <h2>Sites</h2>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item className="sub-container">
+        <Grid className="input-container">
+          <Grid container className="input-container-inner" justify="space-between">
+            <Grid item xs={9}>
+              <input type="text" name="sites" placeholder="Enter your site here" value={newSite} onChange={handleChange} className="input-add" />
+            </Grid>
+            <Grid item>
+              <Button size="small" className={classes.addButton} startIcon={<AddCircleOutline />} onClick={handleSubmit}>Add</Button>
+            </Grid>
+          </Grid>
+        </Grid>
+        <div className="divider"></div>
+        <Grid container direction="column" wrap="nowrap" className="list-container">
+          {sites.map((site, index) =>
+            <Grid item key={index} class="list-item">
+              <Grid container alignItems="center" justify="space-between">
+                <Grid item>
+                  <p>{site}</p>
+                </Grid>
+                <Grid item>
+                  <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(index)}>Clear</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 
