@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
 import '../style/component.css';
 
 const Keywords = () => {
@@ -28,6 +29,7 @@ const Keywords = () => {
       color: "#ffffff", 
       borderColor: "#233952", 
       textTransform: "capitalize",
+      // TODO: hover doesn't work
       "&:hover": {
         borderColor: "#ffffff"
       }
@@ -36,6 +38,7 @@ const Keywords = () => {
       color: "#ffffff", 
       background: "#0086F9", 
       textTransform: "capitalize",
+      // TODO: hover doesn't work
       "&:hover": {
         background: "#ffffff"
       }
@@ -65,9 +68,16 @@ const Keywords = () => {
   };
   
   return (
-    <Grid container direction="column" spacing={3} className="component-container">
+    <Grid container direction="column" spacing={2} className="component-container">
       <Grid item className="sub-heading">
-        <h2>Keywords</h2>
+        <Grid container spacing={1}>
+          <Grid item>
+            <BookmarkBorder />
+          </Grid>
+          <Grid item>
+            <h2>Keywords</h2>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item className="sub-container">
         <Grid className="input-container">
