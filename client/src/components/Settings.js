@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
@@ -49,6 +50,39 @@ const useStyles = makeStyles({
   checkBoxLabel: {
     color: "#FFFFFF",
     fontWeight: "500"
+  },
+  inputFieldRoot: {
+    width: "65px",
+    icon: {
+      fill: "#FFFFFF"
+    },
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#233952"
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#FFFFFF"
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#FFFFFF"
+    },
+    "& .MuiOutlinedInput-input": {
+      color: "#FFFFFF"
+    },
+    "&:hover .MuiOutlinedInput-input": {
+      color: "#FFFFFF"
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+      color: "#FFFFFF"
+    },
+    "& .MuiInputLabel-outlined": {
+      color: "#FFFFFF"
+    },
+    "&:hover .MuiInputLabel-outlined": {
+      color: "#FFFFFF"
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: "#FFFFFF"
+    }
   }
 });
 
@@ -70,13 +104,13 @@ const Settings = () => {
   
   const handleInput = (e) => {
     console.log(e);
+    const sectionName = e.target.attributes.id.nodeValue;
     const targetName = e.target.name;
-    const sectionName = e.target.attributes.section.nodeValue;
     const currentValue = e.target.value;
     console.log(sectionName);
     console.log(targetName);
     console.log(currentValue);
-    // setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
+    setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
   };
   
   const handleExportClick = () => {
@@ -165,17 +199,17 @@ const Settings = () => {
             </div>
             <div className="horizontal-divider"></div>
             <div className="time-container">
-              <Grid container direction="column" spacing={4}>
+              <Grid container direction="column" spacing={3}>
                 <Grid item>
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
                       <p>Wait</p>
                     </Grid>
                     <Grid item>
-                      <input type="number" section="inputs" name="wait_seconds_1" min={0} max={100} value={settings.inputs.wait_seconds_1} onChange={handleInput} />
+                      <TextField type="number" size="small" name="wait_seconds_1" value={settings.inputs.wait_seconds_1} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
-                      <input type="number" name="wait_seconds_2" min={0} max={100} value={settings.inputs.wait_seconds_2} />
+                      <TextField type="number" size="small" name="wait_seconds_2" value={settings.inputs.wait_seconds_2} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
                       <p>seconds on the targeted website.</p>
@@ -191,16 +225,16 @@ const Settings = () => {
                 <Grid item>
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <input type="number" name="page_numbers" min={0} max={100} value={settings.inputs.page_numbers} />
+                      <TextField type="number" size="small" name="page_numbers" value={settings.inputs.page_numbers} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
                       <p>pages</p>
                     </Grid>
                     <Grid item>
-                      <input type="number" name="page_visit_seconds_1" min={0} max={100} value={settings.inputs.page_visit_seconds_1} />
+                      <TextField type="number" size="small" name="page_visit_seconds_1" value={settings.inputs.page_visit_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
-                      <input type="number" name="page_visit_seconds_2" min={0} max={100} value={settings.inputs.page_visit_seconds_2} />
+                      <TextField type="number" size="small" name="page_visit_seconds_2" value={settings.inputs.page_visit_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 10 } }} />
                     </Grid>
                     <Grid item>
                       <p>visit from to second.</p>
@@ -213,10 +247,10 @@ const Settings = () => {
                       <p>After the operation is complete</p>
                     </Grid>
                     <Grid item>
-                      <input type="number" name="after_operation_wait_seconds_1" min={0} max={100} value={settings.inputs.after_operation_wait_seconds_1} />
+                      <TextField type="number" size="small" name="after_operation_wait_seconds_1" value={settings.inputs.after_operation_wait_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
-                      <input type="number" name="after_operation_wait_seconds_2" min={0} max={100} value={settings.inputs.after_operation_wait_seconds_2} />
+                      <TextField type="number" size="small" name="after_operation_wait_seconds_2" value={settings.inputs.after_operation_wait_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
                       <p>seconds wait.</p>
@@ -229,13 +263,13 @@ const Settings = () => {
                       <p>Target site</p>
                     </Grid>
                     <Grid item>
-                      <input type="number" name="target_sites" min={0} max={100} value={settings.inputs.target_sites} />
+                      <TextField type="number" size="small" name="target_sites" value={settings.inputs.target_sites} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
                       <p>if not found times</p>
                     </Grid>
                     <Grid item>
-                      <input type="number" name="target_site_wait_minutes" min={0} max={100} value={settings.inputs.target_site_wait_minutes} />
+                      <TextField type="number" size="small" name="target_site_wait_minutes" value={settings.inputs.target_site_wait_minutes} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
                       <p>minutes wait.</p>
@@ -245,7 +279,7 @@ const Settings = () => {
                 <Grid item>
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <input type="number" name="auto_reset_times" min={0} max={100} value={settings.inputs.auto_reset_times} />
+                      <TextField type="number" size="small" name="auto_reset_times" value={settings.inputs.auto_reset_times} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
                     </Grid>
                     <Grid item>
                       <p>automatic reset after operation.</p>
