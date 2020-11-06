@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../style/components.css';
 
 const Settings = () => {
   const SETTINGS_URL = 'http://localhost:8000/settings';

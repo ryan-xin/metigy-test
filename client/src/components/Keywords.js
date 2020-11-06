@@ -4,7 +4,27 @@ import Button from '@material-ui/core/Button';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
-import '../style/component.css';
+import '../style/components.css';
+import makeStyles from '@material-ui/styles/makeStyles';
+
+const useStyles = makeStyles({
+  removeButton: {
+    color: "#ffffff", 
+    borderColor: "#233952", 
+    textTransform: "capitalize",
+    "&:hover": {
+      borderColor: "#ffffff"
+    }
+  },
+  addButton: {
+    color: "#ffffff", 
+    background: "#0086F9", 
+    textTransform: "capitalize",
+    "&:hover": {
+      background: "#007AE2"
+    }
+  }
+})
 
 const Keywords = () => {
   
@@ -23,27 +43,6 @@ const Keywords = () => {
     'Shoes stories',
     'Shoes show'
   ];
-  
-  const styles = {
-    removeButton: {
-      color: "#ffffff", 
-      borderColor: "#233952", 
-      textTransform: "capitalize",
-      // TODO: hover doesn't work
-      "&:hover": {
-        borderColor: "#ffffff"
-      }
-    },
-    addButton: {
-      color: "#ffffff", 
-      background: "#0086F9", 
-      textTransform: "capitalize",
-      // TODO: hover doesn't work
-      "&:hover": {
-        background: "#ffffff"
-      }
-    }
-  }
 
   const [keywords, setKeywords] = useState(starterKeywords);
   const [newKeyword, setNewKeyword] = useState('');
@@ -67,12 +66,14 @@ const Keywords = () => {
     setKeywords(currentKeywords);
   };
   
+  const classes = useStyles();
+  
   return (
     <Grid container direction="column" spacing={2} className="component-container">
       <Grid item className="sub-heading">
         <Grid container spacing={1}>
           <Grid item>
-            <BookmarkBorder />
+            <BookmarkBorder className="bookmark-icon" />
           </Grid>
           <Grid item>
             <h2>Keywords</h2>
@@ -86,7 +87,7 @@ const Keywords = () => {
               <input type="text" name="keywords" placeholder="Enter your keywords here (shoes)" value={newKeyword} onChange={handleChange} className="input-add" />
             </Grid>
             <Grid item>
-              <Button size="small" style={styles.addButton} startIcon={<AddCircleOutline />} onClick={handleSubmit}>Add</Button>
+              <Button size="small" className={classes.addButton} startIcon={<AddCircleOutline />} onClick={handleSubmit}>Add</Button>
             </Grid>
           </Grid>
         </Grid>
@@ -99,7 +100,7 @@ const Keywords = () => {
                     <p>{keyword}</p>
                   </Grid>
                   <Grid item>
-                    <Button size="small" variant="outlined" style={styles.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(index)}>Clear</Button>
+                    <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(index)}>Clear</Button>
                   </Grid>
                 </Grid>
               </Grid>
