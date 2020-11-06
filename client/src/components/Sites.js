@@ -4,27 +4,27 @@ import Button from '@material-ui/core/Button';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import DesktopWindows from '@material-ui/icons/DesktopWindows';
-import '../style/components.css';
 import makeStyles from '@material-ui/styles/makeStyles';
+import '../style/components.css';
 
 const useStyles = makeStyles({
   removeButton: {
-    color: "#ffffff", 
+    color: "#FFFFFF", 
     borderColor: "#233952", 
     textTransform: "capitalize",
     "&:hover": {
-      borderColor: "#ffffff"
+      borderColor: "#FFFFFF"
     }
   },
   addButton: {
-    color: "#ffffff", 
-    background: "#00a94d", 
+    color: "#FFFFFF", 
+    background: "#00A94D", 
     textTransform: "capitalize",
     "&:hover": {
       background: "#009946"
     }
   }
-})
+});
 
 const Sites = () => {
   const starterSites = [
@@ -90,7 +90,7 @@ const Sites = () => {
             </Grid>
           </Grid>
         </Grid>
-        <div className="divider"></div>
+        <div className="horizontal-divider"></div>
         <Grid container direction="column" wrap="nowrap" className="list-container">
           {sites.map((site, index) =>
             <Grid item key={index} class="list-item">

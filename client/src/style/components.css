@@ -1,3 +1,5 @@
+/* ------------------- Keywords, Sites ------------------ */
+
 .input-container {
   background-color: #233248;
   padding: 20px;
@@ -5,7 +7,7 @@
 }
 
 .input-container-inner {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   width: 100%;
   padding: 5px;
   border-radius: 3px;
@@ -19,8 +21,12 @@
   overflow: auto;
 }
 
-.divider {
+.horizontal-divider {
   height: 1px;
+}
+
+.vertical-divider {
+  width: 1px;
 }
 
 .list-item {
@@ -43,5 +49,42 @@
 }
 
 .desktop-icon {
-  color: #00a94d;
+  color: #00A94D;
+}
+
+/* ---------------------- Settings ---------------------- */
+
+.browser-container {
+  background-color: #233248;
+  padding: 20px;
+  border-radius: 3px 0 0 3px;
+  border-right: 1px solid #233952;
+}
+
+.incognito-container {
+  background-color: #233248;
+  padding: 20px;
+  border-radius: 0 3px 3px 0;
+}
+
+.time-container {
+  background-color: #233248;
+  padding: 20px;
+  border-radius: 0 0  3px 3px;
+}
+
+.device-container {
+  background-color: #233248;
+  padding: 20px;
+  border-radius: 3px 3px 0 0;
+}
+
+.option-container {
+  background-color: #233248;
+  padding: 20px;
+  border-radius: 0 0 3px 3px;
+}
+
+.settings-icon {
+  color: #FDBD01;
 }

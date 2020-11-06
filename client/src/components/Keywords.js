@@ -4,27 +4,27 @@ import Button from '@material-ui/core/Button';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
-import '../style/components.css';
 import makeStyles from '@material-ui/styles/makeStyles';
+import '../style/components.css';
 
 const useStyles = makeStyles({
   removeButton: {
-    color: "#ffffff", 
+    color: "#FFFFFF", 
     borderColor: "#233952", 
     textTransform: "capitalize",
     "&:hover": {
-      borderColor: "#ffffff"
+      borderColor: "#FFFFFF"
     }
   },
   addButton: {
-    color: "#ffffff", 
+    color: "#FFFFFF", 
     background: "#0086F9", 
     textTransform: "capitalize",
     "&:hover": {
       background: "#007AE2"
     }
   }
-})
+});
 
 const Keywords = () => {
   
@@ -91,7 +91,7 @@ const Keywords = () => {
             </Grid>
           </Grid>
         </Grid>
-        <div className="divider"></div>
+        <div className="horizontal-divider"></div>
         <Grid container direction="column" wrap="nowrap" className="list-container">
             {keywords.map((keyword, index) => 
               <Grid item key={index} class="list-item">
