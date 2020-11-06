@@ -1,0 +1,39 @@
+.input-container {
+  background-color: #233248;
+  padding: 20px;
+  border-radius: 3px 3px 0 0;
+}
+
+.input-container-inner {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.list-container {
+  background-color: #233248;
+  padding: 20px;
+  border-radius: 0 0 3px 3px;
+  height: 75vh;
+  overflow: auto;
+}
+
+.divider {
+  height: 1px;
+}
+
+.list-item {
+  margin-bottom: 18px;
+}
+
+.input-add {
+  height: 90%;
+  border: 0 solid #ffffff;
+  font-size: 15px;
+  width: 100%;
+}
+
+.input-add:focus {
+  outline: none;
+}

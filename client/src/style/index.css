@@ -1,0 +1,25 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #233952;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  font-weight: 400;
+}
+
+p {
+  font-weight: 500;
+}
+
