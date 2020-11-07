@@ -148,9 +148,9 @@ INSERT INTO settings ('setting_id', 'data') VALUES
     "firefox": false,
     "explorer": true,
     "safari": false,
-    "opera": false
+    "opera": false，
+    "incognito": true
   },
-  "incognito": true,
   "inputs": {
     "wait_seconds_1": 40,
     "wait_seconds_2": 55,

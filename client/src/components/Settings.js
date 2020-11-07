@@ -14,11 +14,13 @@ import { Settings as SettingsIcon } from '@material-ui/icons';
 import makeStyles from '@material-ui/styles/makeStyles';
 import '../style/components.css';
 
-const tickIconYellow = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23FDBD01'/%3E%3C/svg%3E\")"
+const svgBaseURL = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 ";
 
-const tickIconBlue = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%230086F9'/%3E%3C/svg%3E\")"
+const tickIconYellow = svgBaseURL + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23FDBD01'/%3E%3C/svg%3E\")"
 
-const tickIconGreen = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%2300A94D'/%3E%3C/svg%3E\")"
+const tickIconBlue = svgBaseURL + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%230086F9'/%3E%3C/svg%3E\")"
+
+const tickIconGreen = svgBaseURL + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%2300A94D'/%3E%3C/svg%3E\")"
 
 const useStyles = makeStyles({
   exportButton: {
@@ -46,7 +48,7 @@ const useStyles = makeStyles({
     }
   },
   checkboxStyle: {
-    marginRight: "-5px"
+    marginRight: "-3px"
   },
   checkBoxLabel: {
     color: "#FFFFFF",
@@ -118,27 +120,12 @@ const useStyles = makeStyles({
       borderColor: "#233952"
     },
     "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#FFFFFF"
+      borderColor: "#233952"
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#FFFFFF"
+      borderColor: "#233952"
     },
     "& .MuiOutlinedInput-input": {
-      color: "#FFFFFF"
-    },
-    "&:hover .MuiOutlinedInput-input": {
-      color: "#FFFFFF"
-    },
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
-      color: "#FFFFFF"
-    },
-    "& .MuiInputLabel-outlined": {
-      color: "#FFFFFF"
-    },
-    "&:hover .MuiInputLabel-outlined": {
-      color: "#FFFFFF"
-    },
-    "& .MuiInputLabel-outlined.Mui-focused": {
       color: "#FFFFFF"
     }
   }
@@ -169,6 +156,30 @@ const Settings = () => {
     console.log(targetName);
     console.log(currentValue);
     setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
+  };
+  
+  const handleIncrement = (e) => {
+    console.log(e);
+    const sectionName = e.target.attributes.section.nodeValue;
+    const targetName = e.target.name;
+    const currentValue = parseInt(e.target.value) + 1;
+    console.log(sectionName);
+    console.log(targetName);
+    console.log(currentValue);
+    setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
+  };
+
+  const handleDecrement = (e) => {
+    console.log(e);
+    const sectionName = e.target.attributes.section.nodeValue;
+    const targetName = e.target.name;
+    const currentValue = parseInt(e.target.value) - 1;
+    console.log(sectionName);
+    console.log(targetName);
+    console.log(currentValue);
+    if (currentValue >= 0) {
+      setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
+    }
   };
   
   const handleExportClick = () => {
@@ -263,8 +274,13 @@ const Settings = () => {
                     <Grid item>
                       <p>Wait</p>
                     </Grid>
+                      
                     <Grid item>
-                      <TextField type="number" size="small" name="wait_seconds_1" value={settings.inputs.wait_seconds_1} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="wait_seconds_1" value={settings.inputs.wait_seconds_1} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="wait_seconds_1" section="inputs" value={settings.inputs.wait_seconds_1} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="wait_seconds_1" section="inputs" value={settings.inputs.wait_seconds_1} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <TextField type="number" size="small" name="wait_seconds_2" value={settings.inputs.wait_seconds_2} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
@@ -376,7 +392,7 @@ const Settings = () => {
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="fly_mode" size="small" checked={settings.devices.fly_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconInputsDevices, classes.checkboxCheckedIconInputsDevices)} />} icon={<span className={classes.checkboxIconInputsDevices} />} value="devices" />}
+                    control={<Checkbox name="fly_mode" size="small" checked={settings.devices.fly_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
                     label={<Typography className={classes.checkBoxLabel}>Fly Mode</Typography>}
                   />
                 </Grid>

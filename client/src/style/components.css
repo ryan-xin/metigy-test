@@ -56,7 +56,7 @@
 
 .browser-container {
   background-color: #233248;
-  padding: 20px;
+  padding: 23px 20px;
   border-radius: 3px 0 0 0;
   border-right: 1px solid #233952;
   width: 80%;
@@ -64,7 +64,7 @@
 
 .incognito-container {
   background-color: #233248;
-  padding: 20px;
+  padding: 23px 20px;
   border-radius: 0 3px 0 0;
   width: 20%;
 }
@@ -89,4 +89,46 @@
 
 .settings-icon {
   color: #FDBD01;
+}
+
+/* -------------------- Input Counter ------------------- */
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  opacity: 1 !important;
+}
+
+.input-counter {
+  position: relative;
+}
+
+.counter-button {
+  position: absolute;
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 1px solid #233952;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.counter-button:hover {
+  color: #0086F9;
+}
+
+.increment-button {
+  top: 0;
+  right: 0;
+  border-radius: 0 3px 0 0;
+  height: 21px;
+}
+
+.decrement-button {
+  bottom: 0;
+  right: 0;
+  border-radius: 0 0 3px 0;
+  height: 20px;
 }
