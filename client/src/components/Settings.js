@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
-import Input from '@material-ui/core/Input';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
-import PauseCircleOutline from '@material-ui/icons/PauseCircleOutline';
-import PlayCircleOutline from '@material-ui/icons/PlayCircleOutline';
-import { Settings as SettingsIcon } from '@material-ui/icons';
+import { Grid, Button, TextField, Checkbox, FormControlLabel, Typography } from '@material-ui/core';
+import { PauseCircleOutline, PlayCircleOutline, Settings as SettingsIcon } from '@material-ui/icons';
 import makeStyles from '@material-ui/styles/makeStyles';
 import '../style/components.css';
 
