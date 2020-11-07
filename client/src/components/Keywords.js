@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
@@ -27,24 +28,25 @@ const useStyles = makeStyles({
 });
 
 const Keywords = () => {
+  const KEYWORDS_URL = 'http://localhost:8000/keywords';
   
-  const starterKeywords = [
-    'Shoes',
-    'Shoes carnival',
-    'Shoes palace',
-    'Shoes stores near me',
-    'Shoes for crew',
-    'Shoes station',
-    'Shoes repair',
-    'Shoes store',
-    'Shoes for women',
-    'Shoes fashion week',
-    'Shoes instagram',
-    'Shoes stories',
-    'Shoes show'
-  ];
+  // const starterKeywords = [
+  //   'Shoes',
+  //   'Shoes carnival',
+  //   'Shoes palace',
+  //   'Shoes stores near me',
+  //   'Shoes for crew',
+  //   'Shoes station',
+  //   'Shoes repair',
+  //   'Shoes store',
+  //   'Shoes for women',
+  //   'Shoes fashion week',
+  //   'Shoes instagram',
+  //   'Shoes stories',
+  //   'Shoes show'
+  // ];
 
-  const [keywords, setKeywords] = useState(starterKeywords);
+  const [keywords, setKeywords] = useState([]);
   const [newKeyword, setNewKeyword] = useState('');
   
   const handleChange = (e) => {
@@ -52,19 +54,47 @@ const Keywords = () => {
   };
   
   const handleSubmit = (e) => {
-    if (newKeyword !== '') {
-      setKeywords([
-        ...keywords, newKeyword
-      ]);
+    // if (newKeyword !== '') {
+    //   setKeywords([
+    //     ...keywords, newKeyword
+    //   ]);
+    //   setNewKeyword('');
+    // }
+    console.log(newKeyword);
+    axios.post(KEYWORDS_URL, {
+      data: newKeyword
+    })
+    .then(res => {
+      console.log(res.data.keywords);
+      setKeywords(res.data.keywords);
       setNewKeyword('');
-    }
+    })
+    .catch(err => console.log(err));
   };
   
-  const handleClear = (index) => {
-    let currentKeywords = [...keywords];
-    currentKeywords.splice(index, 1);
-    setKeywords(currentKeywords);
+  const handleClear = (id) => {
+    // let currentKeywords = [...keywords];
+    // currentKeywords.splice(index, 1);
+    // setKeywords(currentKeywords);
+    console.log(id);
+    axios.post(KEYWORDS_URL, {
+      keyword_id: id
+    })
+    .then(res => {
+      console.log(res.data.keywords);
+      setKeywords(res.data.keywords);
+    })
+    .catch(err => console.log(err));
   };
+  
+  useEffect(() => {
+    axios.get(KEYWORDS_URL)
+    .then(res => {
+      console.log(res.data.keywords);
+      setKeywords(res.data.keywords);
+    })
+    .catch(err => console.log(err));
+  }, []);
   
   const classes = useStyles();
   
@@ -93,14 +123,14 @@ const Keywords = () => {
         </Grid>
         <div className="horizontal-divider"></div>
         <Grid container direction="column" wrap="nowrap" className="list-container">
-            {keywords.map((keyword, index) => 
-              <Grid item key={index} class="list-item">
+            {keywords.map((keyword) => 
+              <Grid item key={keyword.keyword_id} class="list-item">
                 <Grid container alignItems="center" justify="space-between">
                   <Grid item>
-                    <p>{keyword}</p>
+                    <p>{keyword.data}</p>
                   </Grid>
                   <Grid item>
-                    <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(index)}>Clear</Button>
+                    <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(keyword.keyword_id)}>Clear</Button>
                   </Grid>
                 </Grid>
               </Grid>

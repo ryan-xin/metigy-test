@@ -538,7 +538,7 @@ const Settings = () => {
             </div>
           </Grid>
           <Grid item className="sub-container">
-            <Grid container xs={13} spacing={1} justify="space-between">
+            <Grid container xs={12} spacing={1} justify="space-between">
               <Grid item xs={6}>
                 <Button size="large" variant="contained" className={classes.exportButton} onClick={handleExportClick}>EXPORT REPORT</Button>
               </Grid>

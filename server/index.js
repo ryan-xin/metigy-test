@@ -40,8 +40,13 @@ db.connect((err) => {
 });
 
 const fs = require('fs');
+
 const settingsJSON = fs.readFileSync('./settings.json');
 const settings = JSON.parse(settingsJSON);
+console.log(settings);
+
+const keywordsJSON = fs.readFileSync('./keywords.json');
+const keywords = JSON.parse(keywordsJSON);
 console.log(settings);
 
 /* ----------------------- Routes ----------------------- */
@@ -56,15 +61,8 @@ app.get('/settings', (req, res) => {
   res.json(settings);
 });
 
-app.get('/test', (req, res) => {
-  // const table = 'sample';
-  db.query('select * from sample', (err, results) => {
-    if (err) {
-      return res.send(err);
-    } else {
-      return res.send(results);
-    }
-  });
+app.get('/keywords', (req, res) => {
+  res.json(keywords);
 });
 
 

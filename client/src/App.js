@@ -13,8 +13,8 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: "#233952",
-    },
-  },
+    }
+  }
 });
 
 const useStyles = makeStyles({
