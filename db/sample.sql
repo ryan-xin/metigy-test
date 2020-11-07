@@ -20,14 +20,19 @@ SET time_zone = '+00:00';
 --
 -- Database: 'database'
 --
+CREATE DATABASE IF NOT EXISTS 'metigy_test';
+GRANT ALL PRIVILEGES on metigy_test.*
+TO 'root'@'%'
+WITH GRANT OPTION;
 
+USE 'metigy_test'
 -- --------------------------------------------------------
 
 --
 -- Table structure for table 'keyword'
 --
 
-CREATE TABLE 'keyword' (
+CREATE TABLE 'Keyword' (
   'keyword_id' int(255) NOT NULL,
   'data' varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -36,7 +41,7 @@ CREATE TABLE 'keyword' (
 -- Dumping data for table 'keyword'
 --
 
-INSERT INTO keyword ('keyword_id', 'data') VALUES
+INSERT INTO Keyword ('keyword_id', 'data') VALUES
 (1, 'Shoes'),
 (2, 'Shoes carnival'),
 (3, 'Shoes palace'),
@@ -59,7 +64,7 @@ INSERT INTO keyword ('keyword_id', 'data') VALUES
 -- Indexes for table 'keyword'
 --
 
-ALTER TABLE 'keyword'
+ALTER TABLE 'Keyword'
 ADD PRIMARY KEY ('keyword_id');
 
 --
@@ -70,7 +75,7 @@ ADD PRIMARY KEY ('keyword_id');
 -- AUTO_INCREMENT for table 'keyword'
 --
 
-ALTER TABLE 'keyword'
+ALTER TABLE 'Keyword'
   MODIFY 'keyword_id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
 
 -- --------------------------------------------------------
@@ -79,7 +84,7 @@ ALTER TABLE 'keyword'
 -- Table structure for table 'site'
 --
 
-CREATE TABLE 'site' (
+CREATE TABLE 'Site' (
   'site_id' int(255) NOT NULL,
   'data' varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -88,7 +93,7 @@ CREATE TABLE 'site' (
 -- Dumping data for table 'site'
 --
 
-INSERT INTO sites ('sie_id', 'data') VALUES
+INSERT INTO Site ('sie_id', 'data') VALUES
 (1, 'www.dockers.com'),
 (2, 'www.adidas.com'),
 (3, 'www.nike.com'),
@@ -111,7 +116,7 @@ INSERT INTO sites ('sie_id', 'data') VALUES
 -- Indexes for table 'site'
 --
 
-ALTER TABLE 'site'
+ALTER TABLE 'Site'
 ADD PRIMARY KEY ('site_id');
 
 --
@@ -122,9 +127,8 @@ ADD PRIMARY KEY ('site_id');
 -- AUTO_INCREMENT for table 'keyword'
 --
 
-ALTER TABLE 'site'
-  MODIFY 'site_id' int
-(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
+ALTER TABLE 'Site'
+  MODIFY 'site_id' int (10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
 
 -- --------------------------------------------------------
 
@@ -132,7 +136,7 @@ ALTER TABLE 'site'
 -- Table structure for table 'setting'
 --
 
-CREATE TABLE 'setting' (
+CREATE TABLE 'Setting' (
   'setting_id' int(255) NOT NULL,
   'data' JSON
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -141,7 +145,7 @@ CREATE TABLE 'setting' (
 -- Dumping data for table 'setting'
 --
 
-INSERT INTO settings ('setting_id', 'data') VALUES
+INSERT INTO Setting ('setting_id', 'data') VALUES
 (1, '{
   "browsers": {
     "chrome": false,
@@ -190,7 +194,7 @@ INSERT INTO settings ('setting_id', 'data') VALUES
 -- Indexes for table 'keyword'
 --
 
-ALTER TABLE 'setting'
+ALTER TABLE 'Setting'
 ADD PRIMARY KEY ('setting_id');
 
 --
@@ -201,7 +205,7 @@ ADD PRIMARY KEY ('setting_id');
 -- AUTO_INCREMENT for table 'setting'
 --
 
-ALTER TABLE 'setting'
+ALTER TABLE 'Setting'
   MODIFY 'setting_id' int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
