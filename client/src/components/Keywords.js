@@ -10,7 +10,7 @@ import '../style/components.css';
 const useStyles = makeStyles({
   removeButton: {
     color: "#FFFFFF", 
-    borderColor: "#233952", 
+    borderColor: "#29425E", 
     textTransform: "capitalize",
     "&:hover": {
       borderColor: "#FFFFFF"
