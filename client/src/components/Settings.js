@@ -274,7 +274,6 @@ const Settings = () => {
                     <Grid item>
                       <p>Wait</p>
                     </Grid>
-                      
                     <Grid item>
                       <div className="input-counter">
                         <TextField type="number" size="small" name="wait_seconds_1" value={settings.inputs.wait_seconds_1} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
@@ -283,7 +282,11 @@ const Settings = () => {
                       </div>
                     </Grid>
                     <Grid item>
-                      <TextField type="number" size="small" name="wait_seconds_2" value={settings.inputs.wait_seconds_2} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="wait_seconds_2" value={settings.inputs.wait_seconds_2} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="wait_seconds_2" section="inputs" value={settings.inputs.wait_seconds_2} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="wait_seconds_2" section="inputs" value={settings.inputs.wait_seconds_2} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <p>seconds on the targeted website.</p>
@@ -299,16 +302,28 @@ const Settings = () => {
                 <Grid item>
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <TextField type="number" size="small" name="page_numbers" value={settings.inputs.page_numbers} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="page_numbers" value={settings.inputs.page_numbers} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="page_numbers" section="inputs" value={settings.inputs.page_numbers} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="page_numbers" section="inputs" value={settings.inputs.page_numbers} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <p>pages</p>
                     </Grid>
                     <Grid item>
-                      <TextField type="number" size="small" name="page_visit_seconds_1" value={settings.inputs.page_visit_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="page_visit_seconds_1" value={settings.inputs.page_visit_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="page_visit_seconds_1" section="inputs" value={settings.inputs.page_visit_seconds_1} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="page_visit_seconds_1" section="inputs" value={settings.inputs.page_visit_seconds_1} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
-                      <TextField type="number" size="small" name="page_visit_seconds_2" value={settings.inputs.page_visit_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 10 } }} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="page_visit_seconds_2" value={settings.inputs.page_visit_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 10 } }} />
+                        <button className="counter-button increment-button" name="page_visit_seconds_2" section="inputs" value={settings.inputs.page_visit_seconds_2} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="page_visit_seconds_2" section="inputs" value={settings.inputs.page_visit_seconds_2} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <p>visit from to second.</p>
@@ -321,10 +336,18 @@ const Settings = () => {
                       <p>After the operation is complete</p>
                     </Grid>
                     <Grid item>
-                      <TextField type="number" size="small" name="after_operation_wait_seconds_1" value={settings.inputs.after_operation_wait_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="after_operation_wait_seconds_1" value={settings.inputs.after_operation_wait_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="after_operation_wait_seconds_1" section="inputs" value={settings.inputs.after_operation_wait_seconds_1} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="after_operation_wait_seconds_1" section="inputs" value={settings.inputs.after_operation_wait_seconds_1} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
-                      <TextField type="number" size="small" name="after_operation_wait_seconds_2" value={settings.inputs.after_operation_wait_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="after_operation_wait_seconds_2" value={settings.inputs.after_operation_wait_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="after_operation_wait_seconds_2" section="inputs" value={settings.inputs.after_operation_wait_seconds_2} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="after_operation_wait_seconds_2" section="inputs" value={settings.inputs.after_operation_wait_seconds_2} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <p>seconds wait.</p>
@@ -337,13 +360,21 @@ const Settings = () => {
                       <p>Target site</p>
                     </Grid>
                     <Grid item>
-                      <TextField type="number" size="small" name="target_sites" value={settings.inputs.target_sites} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="target_sites" value={settings.inputs.target_sites} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="target_sites" section="inputs" value={settings.inputs.target_sites} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="target_sites" section="inputs" value={settings.inputs.target_sites} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <p>if not found times</p>
                     </Grid>
                     <Grid item>
-                      <TextField type="number" size="small" name="target_site_wait_minutes" value={settings.inputs.target_site_wait_minutes} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="target_site_wait_minutes" value={settings.inputs.target_site_wait_minutes} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="target_site_wait_minutes" section="inputs" value={settings.inputs.target_site_wait_minutes} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="target_site_wait_minutes" section="inputs" value={settings.inputs.target_site_wait_minutes} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <p>minutes wait.</p>
@@ -353,7 +384,11 @@ const Settings = () => {
                 <Grid item>
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <TextField type="number" size="small" name="auto_reset_times" value={settings.inputs.auto_reset_times} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                      <div className="input-counter">
+                        <TextField type="number" size="small" name="auto_reset_times" value={settings.inputs.auto_reset_times} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="auto_reset_times" section="inputs" value={settings.inputs.auto_reset_times} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="auto_reset_times" section="inputs" value={settings.inputs.auto_reset_times} onClick={handleDecrement}>-</button>
+                      </div>
                     </Grid>
                     <Grid item>
                       <p>automatic reset after operation.</p>
