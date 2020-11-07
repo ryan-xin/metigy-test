@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
@@ -12,6 +13,12 @@ import PlayCircleOutline from '@material-ui/icons/PlayCircleOutline';
 import { Settings as SettingsIcon } from '@material-ui/icons';
 import makeStyles from '@material-ui/styles/makeStyles';
 import '../style/components.css';
+
+const tickIconYellow = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23FDBD01'/%3E%3C/svg%3E\")"
+
+const tickIconBlue = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%230086F9'/%3E%3C/svg%3E\")"
+
+const tickIconGreen = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%2300A94D'/%3E%3C/svg%3E\")"
 
 const useStyles = makeStyles({
   exportButton: {
@@ -38,18 +45,69 @@ const useStyles = makeStyles({
       background: "#009946"
     }
   },
-  checkboxIcon: {
-    color: "#FFFFFF",
-    marginRight: "-5px",
-    "&$checked": {
-      iconStyle: {
-        fill: "#FFFFFF"
-      }
-    }
+  checkboxStyle: {
+    marginRight: "-5px"
   },
   checkBoxLabel: {
     color: "#FFFFFF",
     fontWeight: "500"
+  },
+  checkboxIconBrowsers: {
+    borderRadius: 3,
+    width: 16,
+    height: 16,
+    backgroundColor: "#233952",
+    "input:hover ~ &": {
+      border: "1px solid #FDBD01",
+    },
+  },
+  checkboxCheckedIconBrowsers: {
+    border: "1px solid #FDBD01",
+    "&:before": {
+      display: "block",
+      width: 16,
+      height: 16,
+      backgroundImage: tickIconYellow,
+      content: "''",
+    }
+  },
+  checkboxIconDevices: {
+    borderRadius: 3,
+    width: 16,
+    height: 16,
+    backgroundColor: "#233952",
+    "input:hover ~ &": {
+      border: "1px solid #00A94D",
+    },
+  },
+  checkboxCheckedIconDevices: {
+    border: "1px solid #00A94D",
+    "&:before": {
+      display: "block",
+      width: 16,
+      height: 16,
+      backgroundImage: tickIconGreen,
+      content: "''",
+    }
+  },
+  checkboxIconOptions: {
+    borderRadius: 3,
+    width: 16,
+    height: 16,
+    backgroundColor: "#233952",
+    "input:hover ~ &": {
+      border: "1px solid #0086F9",
+    },
+  },
+  checkboxCheckedIconOptions: {
+    border: "1px solid #0086F9",
+    "&:before": {
+      display: "block",
+      width: 16,
+      height: 16,
+      backgroundImage: tickIconBlue,
+      content: "''",
+    }
   },
   inputFieldRoot: {
     width: "65px",
@@ -159,31 +217,31 @@ const Settings = () => {
                   <Grid container spacing={2}>
                     <Grid item>
                       <FormControlLabel
-                        control={<Checkbox name="chrome" size="small" checked={settings.browsers.chrome} onChange={handleCheckbox} className={classes.checkboxIcon} value="browsers" />}
+                        control={<Checkbox name="chrome" size="small" checked={settings.browsers.chrome} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconBrowsers, classes.checkboxCheckedIconBrowsers)} />} icon={<span className={classes.checkboxIconBrowsers} />} value="browsers" />}
                         label={<Typography className={classes.checkBoxLabel}>Chrome</Typography>}
                       />
                     </Grid>
                     <Grid item>
                       <FormControlLabel
-                        control={<Checkbox name="firefox" size="small" checked={settings.browsers.firefox} onChange={handleCheckbox} className={classes.checkboxIcon} value="browsers" />}
+                        control={<Checkbox name="firefox" size="small" checked={settings.browsers.firefox} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconBrowsers, classes.checkboxCheckedIconBrowsers)} />} icon={<span className={classes.checkboxIconBrowsers} />} value="browsers" />}
                         label={<Typography className={classes.checkBoxLabel}>Firefox</Typography>}
                       />
                     </Grid>
                     <Grid item>
                       <FormControlLabel
-                        control={<Checkbox name="explorer" size="small" checked={settings.browsers.explorer} onChange={handleCheckbox} className={classes.checkboxIcon} value="browsers" />}
+                        control={<Checkbox name="explorer" size="small" checked={settings.browsers.explorer} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconBrowsers, classes.checkboxCheckedIconBrowsers)} />} icon={<span className={classes.checkboxIconBrowsers} />} value="browsers" />}
                         label={<Typography className={classes.checkBoxLabel}>Explorer</Typography>}
                       />
                     </Grid>
                     <Grid item>
                       <FormControlLabel
-                        control={<Checkbox name="safari" size="small" checked={settings.browsers.safari} onChange={handleCheckbox} className={classes.checkboxIcon} value="browsers" />}
+                        control={<Checkbox name="safari" size="small" checked={settings.browsers.safari} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconBrowsers, classes.checkboxCheckedIconBrowsers)} />} icon={<span className={classes.checkboxIconBrowsers} />} value="browsers" />}
                         label={<Typography className={classes.checkBoxLabel}>Safari</Typography>}
                       />
                     </Grid>
                     <Grid item>
                       <FormControlLabel
-                        control={<Checkbox name="opera" size="small" checked={settings.browsers.opera} onChange={handleCheckbox} className={classes.checkboxIcon} value="browsers" />}
+                        control={<Checkbox name="opera" size="small" checked={settings.browsers.opera} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconBrowsers, classes.checkboxCheckedIconBrowsers)} />} icon={<span className={classes.checkboxIconBrowsers} />} value="browsers" />}
                         label={<Typography className={classes.checkBoxLabel}>Opera</Typography>}
                       />
                     </Grid>
@@ -191,7 +249,7 @@ const Settings = () => {
                 </Grid>
                 <Grid item className="incognito-container">
                   <FormControlLabel
-                    control={<Checkbox name="incognito" size="small" checked={settings.browsers.incognito} onChange={handleCheckbox} className={classes.checkboxIcon} value="browsers" />}
+                    control={<Checkbox name="incognito" size="small" checked={settings.browsers.incognito} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconBrowsers, classes.checkboxCheckedIconBrowsers)} />} icon={<span className={classes.checkboxIconBrowsers} />} value="browsers" />}
                     label={<Typography className={classes.checkBoxLabel}>Incognito</Typography>}
                   />
                 </Grid>
@@ -218,7 +276,7 @@ const Settings = () => {
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="visit_within_site" size="small" checked={settings.inputs.visit_within_site} onChange={handleCheckbox} className={classes.checkboxIcon} value="inputs" />}
+                    control={<Checkbox name="visit_within_site" size="small" checked={settings.inputs.visit_within_site} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="inputs" />}
                     label={<Typography className={classes.checkBoxLabel}>Visit the Page within the Site</Typography>}
                   />
                 </Grid>
@@ -294,31 +352,31 @@ const Settings = () => {
               <Grid container spacing={2}>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="device_reset" size="small" checked={settings.devices.device_reset} onChange={handleCheckbox} className={classes.checkboxIcon} value="devices" />}
+                    control={<Checkbox name="device_reset" size="small" checked={settings.devices.device_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
                     label={<Typography className={classes.checkBoxLabel}>Device Reset</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="vinn_reset" size="small" checked={settings.devices.vinn_reset} onChange={handleCheckbox} className={classes.checkboxIcon} value="devices" />}
+                    control={<Checkbox name="vinn_reset" size="small" checked={settings.devices.vinn_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
                     label={<Typography className={classes.checkBoxLabel}>Vinn Reset</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="phone_reset" size="small" checked={settings.devices.phone_reset} onChange={handleCheckbox} className={classes.checkboxIcon} value="devices" />}
+                    control={<Checkbox name="phone_reset" size="small" checked={settings.devices.phone_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
                     label={<Typography className={classes.checkBoxLabel}>Phone Reset</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="mobile_data" size="small" checked={settings.devices.mobile_data} onChange={handleCheckbox} className={classes.checkboxIcon} value="devices" />}
+                    control={<Checkbox name="mobile_data" size="small" checked={settings.devices.mobile_data} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
                     label={<Typography className={classes.checkBoxLabel}>Mobile Data</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="fly_mode" size="small" checked={settings.devices.fly_mode} onChange={handleCheckbox} className={classes.checkboxIcon} value="devices" />}
+                    control={<Checkbox name="fly_mode" size="small" checked={settings.devices.fly_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconInputsDevices, classes.checkboxCheckedIconInputsDevices)} />} icon={<span className={classes.checkboxIconInputsDevices} />} value="devices" />}
                     label={<Typography className={classes.checkBoxLabel}>Fly Mode</Typography>}
                   />
                 </Grid>
@@ -329,43 +387,43 @@ const Settings = () => {
               <Grid container spacing={2}>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="remove_cookies" size="small" checked={settings.options.remove_cookies} onChange={handleCheckbox} className={classes.checkboxIcon} value="options" />}
+                    control={<Checkbox name="remove_cookies" size="small" checked={settings.options.remove_cookies} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
                     label={<Typography className={classes.checkBoxLabel}>Remove Cookies</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="change_resolution" size="small" checked={settings.options.change_resolution} onChange={handleCheckbox} className={classes.checkboxIcon} value="options" />}
+                    control={<Checkbox name="change_resolution" size="small" checked={settings.options.change_resolution} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
                     label={<Typography className={classes.checkBoxLabel}>Change Resolution</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="mouse_tracks" size="small" checked={settings.options.mouse_tracks} onChange={handleCheckbox} className={classes.checkboxIcon} value="options" />}
+                    control={<Checkbox name="mouse_tracks" size="small" checked={settings.options.mouse_tracks} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
                     label={<Typography className={classes.checkBoxLabel}>Mouse Tracks</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="data_saving_mode" size="small" checked={settings.options.data_saving_mode} onChange={handleCheckbox} className={classes.checkboxIcon} value="options" />}
+                    control={<Checkbox name="data_saving_mode" size="small" checked={settings.options.data_saving_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
                     label={<Typography className={classes.checkBoxLabel}>Data Saving Mode</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="random_generate" size="small" checked={settings.options.random_generate} onChange={handleCheckbox} className={classes.checkboxIcon} value="options" />}
+                    control={<Checkbox name="random_generate" size="small" checked={settings.options.random_generate} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
                     label={<Typography className={classes.checkBoxLabel}>Random Generate</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="analytics_protection" size="small" checked={settings.options.analytics_protection} onChange={handleCheckbox} className={classes.checkboxIcon} value="options" />}
+                    control={<Checkbox name="analytics_protection" size="small" checked={settings.options.analytics_protection} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
                     label={<Typography className={classes.checkBoxLabel}>Analytics Protection</Typography>}
                   />
                 </Grid>
                 <Grid item>
                   <FormControlLabel
-                    control={<Checkbox name="remove_history" size="small" checked={settings.options.remove_history} onChange={handleCheckbox} className={classes.checkboxIcon} value="options" />}
+                    control={<Checkbox name="remove_history" size="small" checked={settings.options.remove_history} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
                     label={<Typography className={classes.checkBoxLabel}>Remove History</Typography>}
                   />
                 </Grid>
