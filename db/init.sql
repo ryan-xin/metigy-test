@@ -18,7 +18,7 @@ SET time_zone = '+00:0';
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: 'database'
+-- Database: 'metigy_test'
 --
 CREATE DATABASE IF NOT EXISTS metigy_test;
 GRANT ALL PRIVILEGES on metigy_test.*
@@ -42,20 +42,20 @@ CREATE TABLE IF NOT EXISTS Keyword (
 -- Dumping data for table 'Keyword'
 --
 
--- INSERT INTO Keyword ('keyword_id', 'data') VALUES
--- (1, 'Shoes'),
--- (2, 'Shoes carnival'),
--- (3, 'Shoes palace'),
--- (4, 'Shoes stores near me'),
--- (5, 'Shoes for crew'),
--- (6, 'Shoes station'),
--- (7, 'Shoes repair'),
--- (8, 'Shoes store'),
--- (9, 'Shoes for women'),
--- (10, 'Shoes fashion week'),
--- (11, 'Shoes instagram'),
--- (12, 'Shoes stories'),
--- (13, 'Shoes show');
+INSERT INTO Keyword (keyword_id, data) VALUES
+(1, 'Shoes'),
+(2, 'Shoes carnival'),
+(3, 'Shoes palace'),
+(4, 'Shoes stores near me'),
+(5, 'Shoes for crew'),
+(6, 'Shoes station'),
+(7, 'Shoes repair'),
+(8, 'Shoes store'),
+(9, 'Shoes for women'),
+(10, 'Shoes fashion week'),
+(11, 'Shoes instagram'),
+(12, 'Shoes stories'),
+(13, 'Shoes show');
 
 -- --
 -- -- Indexes for dumped tables
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS Keyword (
 -- -- Indexes for table 'Keyword'
 -- --
 
--- ALTER TABLE 'Keyword'
---   ADD PRIMARY KEY ('keyword_id');
+ALTER TABLE Keyword
+  ADD PRIMARY KEY (keyword_id);
 
 -- --
 -- -- AUTO_INCREMENT for dumped tables
@@ -76,9 +76,9 @@ CREATE TABLE IF NOT EXISTS Keyword (
 -- -- AUTO_INCREMENT for table 'Keyword'
 -- --
 
--- ALTER TABLE 'Keyword'
---   MODIFY 'keyword_id' int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
--- COMMIT;
+ALTER TABLE Keyword
+  MODIFY keyword_id int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;
 
 -- -- --------------------------------------------------------
 
@@ -86,29 +86,29 @@ CREATE TABLE IF NOT EXISTS Keyword (
 -- -- Table structure for table 'Site'
 -- --
 
--- CREATE TABLE 'Site' (
---   'site_id' int(255) NOT NULL,
---   'data' varchar(100) NOT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS Site (
+  site_id int(255) NOT NULL,
+  data varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --
 -- -- Dumping data for table 'Site'
 -- --
 
--- INSERT INTO Site ('sie_id', 'data') VALUES
--- (1, 'www.dockers.com'),
--- (2, 'www.adidas.com'),
--- (3, 'www.nike.com'),
--- (4, 'www.underarmour.com'),
--- (5, 'www.newbalance.com'),
--- (6, 'www.puma.com'),
--- (7, 'www.prada.com'),
--- (8, 'www.fredperry.com'),
--- (9, 'www.caterpillar.com'),
--- (10, 'www.gucci.com'),
--- (11, 'www.allenedmonds.com'),
--- (12, 'www.brunomagli.com'),
--- (13, 'www.diesel.com');
+INSERT INTO Site (site_id, data) VALUES
+(1, 'www.dockers.com'),
+(2, 'www.adidas.com'),
+(3, 'www.nike.com'),
+(4, 'www.underarmour.com'),
+(5, 'www.newbalance.com'),
+(6, 'www.puma.com'),
+(7, 'www.prada.com'),
+(8, 'www.fredperry.com'),
+(9, 'www.caterpillar.com'),
+(10, 'www.gucci.com'),
+(11, 'www.allenedmonds.com'),
+(12, 'www.brunomagli.com'),
+(13, 'www.diesel.com');
 
 -- --
 -- -- Indexes for dumped tables
@@ -118,8 +118,8 @@ CREATE TABLE IF NOT EXISTS Keyword (
 -- -- Indexes for table 'Site'
 -- --
 
--- ALTER TABLE 'Site'
---   ADD PRIMARY KEY ('site_id');
+ALTER TABLE Site
+  ADD PRIMARY KEY (site_id);
 
 -- --
 -- -- AUTO_INCREMENT for dumped tables
@@ -129,9 +129,9 @@ CREATE TABLE IF NOT EXISTS Keyword (
 -- -- AUTO_INCREMENT for table 'Site'
 -- --
 
--- ALTER TABLE 'Site'
---   MODIFY 'site_id' int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
--- COMMIT;
+ALTER TABLE Site
+  MODIFY site_id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;
 
 -- -- --------------------------------------------------------
 
