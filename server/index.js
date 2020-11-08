@@ -17,11 +17,6 @@ app.listen(process.env.REACT_APP_SERVER_PORT, () => {
   console.log(`Server is running on port ${process.env.REACT_APP_SERVER_PORT}...`);
 });
 
-// console.log(process.env.MYSQL_HOST_IP);
-// console.log(process.env.MYSQL_USER);
-// console.log(process.env.MYSQL_PASSWORD);
-// console.log(process.env.MYSQL_DATABASE);
-
 /* ---------------- MySql Initialization ---------------- */
 
 const mysql = require('mysql');
@@ -74,34 +69,46 @@ app.post('/settings/edit', (req, res) => {
 
 // Read Keywords
 app.get('/keywords', (req, res) => {
-  res.json(keywords);
-  // db.query('SELECT * FROM Keyword', (err, result, fields) => {
-  //   if (err) {
-  //     return console.log(err);
-  //   }
-  //   res.json(result);
-  // });
+  // res.json(keywords);
+  db.query('SELECT * FROM Keyword', (err, result, fields) => {
+    if (err) {
+      return console.log(err);
+    }
+    res.json(result);
+  });
 });
 
 // Create Keywords
 app.post('/keywords/create', (req, res) => {
-  const sql = `INSERT INTO Keyword (data) VALUES ${req.body}`;
+  console.log(req.body);
+  const sql = `INSERT INTO Keyword (data) VALUES ('${req.body.data}')`;
   db.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    res.json(result);
+    db.query('SELECT * FROM Keyword', (err, result, fields) => {
+      if (err) {
+        return console.log(err);
+      }
+      res.json(result);
+    });
   });
 });
 
 // Delete Keywords
 app.post('/keywords/delete', (req, res) => {
-  const sql = `DELETE FROM Keyword WHERE keyword_id = ${req.body}`;
+  console.log(req.body);
+  const sql = `DELETE FROM Keyword WHERE keyword_id = ${req.body.keyword_id}`;
   db.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    console.log(result);
+    db.query('SELECT * FROM Keyword', (err, result, fields) => {
+      if (err) {
+        return console.log(err);
+      }
+      res.json(result);
+    });
   });  
 });
 

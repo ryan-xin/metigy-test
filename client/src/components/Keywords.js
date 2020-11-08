@@ -26,22 +26,6 @@ const useStyles = makeStyles({
 
 const Keywords = () => {
   const KEYWORDS_URL = 'http://localhost:8000/keywords';
-  
-  // const starterKeywords = [
-  //   'Shoes',
-  //   'Shoes carnival',
-  //   'Shoes palace',
-  //   'Shoes stores near me',
-  //   'Shoes for crew',
-  //   'Shoes station',
-  //   'Shoes repair',
-  //   'Shoes store',
-  //   'Shoes for women',
-  //   'Shoes fashion week',
-  //   'Shoes instagram',
-  //   'Shoes stories',
-  //   'Shoes show'
-  // ];
 
   const [keywords, setKeywords] = useState([]);
   const [newKeyword, setNewKeyword] = useState('');
@@ -58,12 +42,12 @@ const Keywords = () => {
     //   setNewKeyword('');
     // }
     console.log(newKeyword);
-    axios.post(KEYWORDS_URL, {
+    axios.post(`${KEYWORDS_URL}/create`, {
       data: newKeyword
     })
     .then(res => {
-      console.log(res.data.keywords);
-      setKeywords(res.data.keywords);
+      console.log(res.data);
+      setKeywords(res.data);
       setNewKeyword('');
     })
     .catch(err => console.log(err));
@@ -74,12 +58,12 @@ const Keywords = () => {
     // currentKeywords.splice(index, 1);
     // setKeywords(currentKeywords);
     console.log(id);
-    axios.post(KEYWORDS_URL, {
+    axios.post(`${KEYWORDS_URL}/delete`, {
       keyword_id: id
     })
     .then(res => {
-      console.log(res.data.keywords);
-      setKeywords(res.data.keywords);
+      console.log(res.data);
+      setKeywords(res.data);
     })
     .catch(err => console.log(err));
   };
@@ -87,8 +71,8 @@ const Keywords = () => {
   useEffect(() => {
     axios.get(KEYWORDS_URL)
     .then(res => {
-      console.log(res.data.keywords);
-      setKeywords(res.data.keywords);
+      console.log(res.data);
+      setKeywords(res.data);
     })
     .catch(err => console.log(err));
   }, []);
