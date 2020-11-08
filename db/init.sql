@@ -17,9 +17,9 @@ SET time_zone = '+00:0';
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: 'metigy_test'
---
+
+-- Database: 'metigy_test' ---------------------
+
 CREATE DATABASE IF NOT EXISTS metigy_test;
 GRANT ALL PRIVILEGES on metigy_test.*
 TO 'metigy'@'%'
@@ -27,22 +27,14 @@ WITH GRANT OPTION;
 
 USE metigy_test
 
--- --------------------------------------------------------
-
---
 -- Table structure for table 'Keyword'
---
 
 CREATE TABLE IF NOT EXISTS Keyword (
-  keyword_id int(255) NOT NULL,
-  data varchar(100) NOT NULL
+  id int(255) NOT NULL,
+  word varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table 'Keyword'
---
-
-INSERT INTO Keyword (keyword_id, data) VALUES
+INSERT INTO Keyword (id, word) VALUES
 (1, 'Shoes'),
 (2, 'Shoes carnival'),
 (3, 'Shoes palace'),
@@ -57,45 +49,21 @@ INSERT INTO Keyword (keyword_id, data) VALUES
 (12, 'Shoes stories'),
 (13, 'Shoes show');
 
--- --
--- -- Indexes for dumped tables
--- --
-
--- --
--- -- Indexes for table 'Keyword'
--- --
+ALTER TABLE Keyword
+  ADD PRIMARY KEY (id);
 
 ALTER TABLE Keyword
-  ADD PRIMARY KEY (keyword_id);
-
--- --
--- -- AUTO_INCREMENT for dumped tables
--- --
-
--- --
--- -- AUTO_INCREMENT for table 'Keyword'
--- --
-
-ALTER TABLE Keyword
-  MODIFY keyword_id int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY id int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
--- -- --------------------------------------------------------
-
--- --
--- -- Table structure for table 'Site'
--- --
+-- Table structure for table 'Site' ---------------------
 
 CREATE TABLE IF NOT EXISTS Site (
-  site_id int(255) NOT NULL,
-  data varchar(100) NOT NULL
+  id int(255) NOT NULL,
+  url varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --
--- -- Dumping data for table 'Site'
--- --
-
-INSERT INTO Site (site_id, data) VALUES
+INSERT INTO Site (id, url) VALUES
 (1, 'www.dockers.com'),
 (2, 'www.adidas.com'),
 (3, 'www.nike.com'),
@@ -110,43 +78,63 @@ INSERT INTO Site (site_id, data) VALUES
 (12, 'www.brunomagli.com'),
 (13, 'www.diesel.com');
 
--- --
--- -- Indexes for dumped tables
--- --
-
--- --
--- -- Indexes for table 'Site'
--- --
+ALTER TABLE Site
+  ADD PRIMARY KEY (id);
 
 ALTER TABLE Site
-  ADD PRIMARY KEY (site_id);
-
--- --
--- -- AUTO_INCREMENT for dumped tables
--- --
-
--- --
--- -- AUTO_INCREMENT for table 'Site'
--- --
-
-ALTER TABLE Site
-  MODIFY site_id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
--- -- --------------------------------------------------------
+-- Table structure for table 'Setting' ---------------------
 
--- --
--- -- Table structure for table 'Setting'
--- --
+CREATE TABLE IF NOT EXISTS Setting (
+  id int(255) NOT NULL,
+  wait_sec_min int(255) NOT NULL,
+  wait_sec_max int(255) NOT NULL,
+  visit_within_site BOOLEAN,
+  page_nums int(255) NOT NULL,
+  page_visit_sec_min int(255) NOT NULL,
+  page_visit_sec_max int(255) NOT NULL,
+  after_op_wait_sec_min int(255) NOT NULL,
+  after_op_wait_sec_max int(255) NOT NULL,
+  target_sites int(255) NOT NULL,
+  target_site_wait_mins int(255) NOT NULL,
+  auto_reset_times int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- CREATE TABLE 'Setting' (
---   'setting_id' int(255) NOT NULL,
---   'data' JSON
--- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO Setting (id, wait_sec_min, wait_sec_max, visit_within_site, page_nums, page_visit_sec_min, page_visit_sec_max, after_op_wait_sec_min, after_op_wait_sec_max, target_sites, target_site_wait_mins, auto_reset_times) VALUES
+(1, 40, 55, true, 1, 30, 50, 5, 10, 10, 20, 1);
 
--- --
--- -- Dumping data for table 'Setting'
--- --
+ALTER TABLE Setting
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE Setting
+  MODIFY id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+-- Table structure for table 'Browser' ---------------------
+
+CREATE TABLE IF NOT EXISTS Browser (
+  id int(255) NOT NULL,
+  chrome BOOLEAN,
+  firefox BOOLEAN,
+  explorer BOOLEAN,
+  safari BOOLEAN,
+  opera BOOLEAN,
+  incognito BOOLEAN,
+  setting_id int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO Browser (id, chrome, firefox, explorer, safari, opera, incognito, setting_id) VALUES
+(1, false, false, true, false, false, true, 1);
+
+ALTER TABLE Browser
+  ADD PRIMARY KEY (id),
+  ADD FOREIGN KEY (setting_id) REFERENCES Setting(id);
+
+ALTER TABLE Browser
+  MODIFY id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
 
 -- INSERT INTO Setting ('setting_id', 'data') VALUES
 -- (1, '{
@@ -157,19 +145,6 @@ COMMIT;
 --     "safari": false,
 --     "opera": false，
 --     "incognito": true
---   },
---   "inputs": {
---     "wait_seconds_1": 40,
---     "wait_seconds_2": 55,
---     "visit_within_site": true,
---     "page_numbers": 1,
---     "page_visit_seconds_1": 30,
---     "page_visit_seconds_2": 50,
---     "after_operation_wait_seconds_1": 5,
---     "after_operation_wait_seconds_2": 10,
---     "target_sites": 10,
---     "target_site_wait_minutes": 20,
---     "auto_reset_times": 1
 --   },
 --   "devices": {
 --     "device_reset": false,
@@ -189,28 +164,6 @@ COMMIT;
 --   }
 -- }');
 
--- --
--- -- Indexes for dumped tables
--- --
-
--- --
--- -- Indexes for table 'Setting'
--- --
-
--- ALTER TABLE 'Setting'
---   ADD PRIMARY KEY ('setting_id');
-
--- --
--- -- AUTO_INCREMENT for dumped tables
--- --
-
--- --
--- -- AUTO_INCREMENT for table 'Setting'
--- --
-
--- ALTER TABLE 'Setting'
---   MODIFY 'setting_id' int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
--- COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

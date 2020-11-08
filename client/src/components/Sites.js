@@ -38,7 +38,7 @@ const Sites = () => {
     if (newSite !== '') {
       console.log(newSite);
       axios.post(`${SITES_URL}/create`, {
-        data: newSite
+        url: newSite
       })
       .then(res => {
         console.log(res.data);
@@ -52,7 +52,7 @@ const Sites = () => {
   const handleClear = (id) => {
     console.log(id);
     axios.post(`${SITES_URL}/delete`, {
-      site_id: id
+      id: id
     })
     .then(res => {
       console.log(res.data);
@@ -98,13 +98,13 @@ const Sites = () => {
         <div className="horizontal-divider"></div>
         <Grid container direction="column" wrap="nowrap" className="list-container">
           {sites.map((site) =>
-            <Grid item key={site.site_id} class="list-item">
+            <Grid item key={site.id} class="list-item">
               <Grid container alignItems="center" justify="space-between">
                 <Grid item>
-                  <p>{site.data}</p>
+                  <p>{site.url}</p>
                 </Grid>
                 <Grid item>
-                  <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(site.site_id)}>Clear</Button>
+                  <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(site.id)}>Clear</Button>
                 </Grid>
               </Grid>
             </Grid>

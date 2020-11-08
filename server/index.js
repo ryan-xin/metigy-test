@@ -12,6 +12,14 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const mysql = require('mysql');
+const pool = mysql.createPool({
+  host: process.env.MYSQL_HOST_IP,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE
+});
+
 // Set PORT, listen for requests
 app.listen(process.env.REACT_APP_SERVER_PORT, () => {
   console.log(`Server is running on port ${process.env.REACT_APP_SERVER_PORT}...`);
@@ -19,20 +27,13 @@ app.listen(process.env.REACT_APP_SERVER_PORT, () => {
 
 /* ---------------- MySql Initialization ---------------- */
 
-const mysql = require('mysql');
-const db = mysql.createConnection({
-  host: process.env.MYSQL_HOST_IP,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE
-});
-db.connect((err) => {
-  if(err) {
-    console.log(err);
-  } else {
-    console.log('Database is connected.');
-  }
-});
+// db.connect((err) => {
+//   if(err) {
+//     console.log(err);
+//   } else {
+//     console.log('Database is connected.');
+//   }
+// });
 
 const fs = require('fs');
 
@@ -49,7 +50,7 @@ app.get('/', (req, res) => {
 
 // Read Keyword
 app.get('/keywords', (req, res) => {
-  db.query('SELECT * FROM Keyword', (err, result, fields) => {
+  pool.query('SELECT * FROM Keyword', (err, result, fields) => {
     if (err) {
       return console.log(err);
     }
@@ -60,12 +61,12 @@ app.get('/keywords', (req, res) => {
 // Create Keyword
 app.post('/keywords/create', (req, res) => {
   console.log(req.body);
-  const sql = `INSERT INTO Keyword (data) VALUES ('${req.body.data}')`;
-  db.query(sql, (err, result) => {
+  const sql = `INSERT INTO Keyword (word) VALUES ('${req.body.word}')`;
+  pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    db.query('SELECT * FROM Keyword', (err, result, fields) => {
+    pool.query('SELECT * FROM Keyword', (err, result, fields) => {
       if (err) {
         return console.log(err);
       }
@@ -77,12 +78,12 @@ app.post('/keywords/create', (req, res) => {
 // Delete Keyword
 app.post('/keywords/delete', (req, res) => {
   console.log(req.body);
-  const sql = `DELETE FROM Keyword WHERE keyword_id = ${req.body.keyword_id}`;
-  db.query(sql, (err, result) => {
+  const sql = `DELETE FROM Keyword WHERE id = ${req.body.id}`;
+  pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    db.query('SELECT * FROM Keyword', (err, result, fields) => {
+    pool.query('SELECT * FROM Keyword', (err, result, fields) => {
       if (err) {
         return console.log(err);
       }
@@ -95,7 +96,7 @@ app.post('/keywords/delete', (req, res) => {
 
 // Read Site
 app.get('/sites', (req, res) => {
-  db.query('SELECT * FROM Site', (err, result, fields) => {
+  pool.query('SELECT * FROM Site', (err, result, fields) => {
     if (err) {
       return console.log(err);
     }
@@ -106,12 +107,12 @@ app.get('/sites', (req, res) => {
 // Create Site
 app.post('/sites/create', (req, res) => {
   console.log(req.body);
-  const sql = `INSERT INTO Site (data) VALUES ('${req.body.data}')`;
-  db.query(sql, (err, result) => {
+  const sql = `INSERT INTO Site (url) VALUES ('${req.body.url}')`;
+  pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    db.query('SELECT * FROM Site', (err, result, fields) => {
+    pool.query('SELECT * FROM Site', (err, result, fields) => {
       if (err) {
         return console.log(err);
       }
@@ -123,12 +124,12 @@ app.post('/sites/create', (req, res) => {
 // Delete Site
 app.post('/sites/delete', (req, res) => {
   console.log(req.body);
-  const sql = `DELETE FROM Site WHERE site_id = ${req.body.site_id}`;
-  db.query(sql, (err, result) => {
+  const sql = `DELETE FROM Site WHERE id = ${req.body.id}`;
+  pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    db.query('SELECT * FROM Site', (err, result, fields) => {
+    pool.query('SELECT * FROM Site', (err, result, fields) => {
       if (err) {
         return console.log(err);
       }
@@ -147,7 +148,7 @@ app.get('/settings', (req, res) => {
 // Update Settings
 app.post('/settings/edit', (req, res) => {
   var sql = "UPDATE Setting SET address = 'Canyon 123' WHERE setting_id = ";
-  db.query(sql, (err, result) => {
+  pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }

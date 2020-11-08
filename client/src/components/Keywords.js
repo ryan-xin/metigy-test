@@ -38,7 +38,7 @@ const Keywords = () => {
     if (newKeyword !== '') {
       console.log(newKeyword);
       axios.post(`${KEYWORDS_URL}/create`, {
-        data: newKeyword
+        word: newKeyword
       })
       .then(res => {
         console.log(res.data);
@@ -52,7 +52,7 @@ const Keywords = () => {
   const handleClear = (id) => {
     console.log(id);
     axios.post(`${KEYWORDS_URL}/delete`, {
-      keyword_id: id
+      id: id
     })
     .then(res => {
       console.log(res.data);
@@ -98,13 +98,13 @@ const Keywords = () => {
         <div className="horizontal-divider"></div>
         <Grid container direction="column" wrap="nowrap" className="list-container">
             {keywords.map((keyword) => 
-              <Grid item key={keyword.keyword_id} class="list-item">
+              <Grid item key={keyword.id} class="list-item">
                 <Grid container alignItems="center" justify="space-between">
                   <Grid item>
-                    <p>{keyword.data}</p>
+                    <p>{keyword.word}</p>
                   </Grid>
                   <Grid item>
-                    <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(keyword.keyword_id)}>Clear</Button>
+                    <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(keyword.id)}>Clear</Button>
                   </Grid>
                 </Grid>
               </Grid>
