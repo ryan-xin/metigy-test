@@ -35,28 +35,21 @@ const Keywords = () => {
   };
   
   const handleSubmit = (e) => {
-    // if (newKeyword !== '') {
-    //   setKeywords([
-    //     ...keywords, newKeyword
-    //   ]);
-    //   setNewKeyword('');
-    // }
-    console.log(newKeyword);
-    axios.post(`${KEYWORDS_URL}/create`, {
-      data: newKeyword
-    })
-    .then(res => {
-      console.log(res.data);
-      setKeywords(res.data);
-      setNewKeyword('');
-    })
-    .catch(err => console.log(err));
+    if (newKeyword !== '') {
+      console.log(newKeyword);
+      axios.post(`${KEYWORDS_URL}/create`, {
+        data: newKeyword
+      })
+      .then(res => {
+        console.log(res.data);
+        setKeywords(res.data);
+        setNewKeyword('');
+      })
+      .catch(err => console.log(err));
+    }
   };
   
   const handleClear = (id) => {
-    // let currentKeywords = [...keywords];
-    // currentKeywords.splice(index, 1);
-    // setKeywords(currentKeywords);
     console.log(id);
     axios.post(`${KEYWORDS_URL}/delete`, {
       keyword_id: id

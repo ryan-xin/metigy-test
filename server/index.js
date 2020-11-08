@@ -40,36 +40,15 @@ const settingsJSON = fs.readFileSync('./settings.json');
 const settings = JSON.parse(settingsJSON);
 console.log(settings);
 
-const keywordsJSON = fs.readFileSync('./keywords.json');
-const keywords = JSON.parse(keywordsJSON);
-console.log(keywords);
-
-/* ----------------------- Routes ----------------------- */
-
 // Testing route
 app.get('/', (req, res) => {
   res.json({message: 'Welcome to Google AdWords Configurator!'});
 });
 
-// Read Settings
-app.get('/settings', (req, res) => {
-  res.json(settings);
-});
+/* ------------------- Keyword Routes ------------------- */
 
-// Update Settings
-app.post('/settings/edit', (req, res) => {
-  var sql = "UPDATE Setting SET address = 'Canyon 123' WHERE setting_id = ";
-  db.query(sql, (err, result) => {
-    if (err) {
-      return console.log(err);
-    }
-    res.json(result);
-  });
-});
-
-// Read Keywords
+// Read Keyword
 app.get('/keywords', (req, res) => {
-  // res.json(keywords);
   db.query('SELECT * FROM Keyword', (err, result, fields) => {
     if (err) {
       return console.log(err);
@@ -78,7 +57,7 @@ app.get('/keywords', (req, res) => {
   });
 });
 
-// Create Keywords
+// Create Keyword
 app.post('/keywords/create', (req, res) => {
   console.log(req.body);
   const sql = `INSERT INTO Keyword (data) VALUES ('${req.body.data}')`;
@@ -95,7 +74,7 @@ app.post('/keywords/create', (req, res) => {
   });
 });
 
-// Delete Keywords
+// Delete Keyword
 app.post('/keywords/delete', (req, res) => {
   console.log(req.body);
   const sql = `DELETE FROM Keyword WHERE keyword_id = ${req.body.keyword_id}`;
@@ -110,6 +89,70 @@ app.post('/keywords/delete', (req, res) => {
       res.json(result);
     });
   });  
+});
+
+/* --------------------- Site Route -------------------- */
+
+// Read Site
+app.get('/sites', (req, res) => {
+  db.query('SELECT * FROM Site', (err, result, fields) => {
+    if (err) {
+      return console.log(err);
+    }
+    res.json(result);
+  });
+});
+
+// Create Site
+app.post('/sites/create', (req, res) => {
+  console.log(req.body);
+  const sql = `INSERT INTO Site (data) VALUES ('${req.body.data}')`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      return console.log(err);
+    }  
+    db.query('SELECT * FROM Site', (err, result, fields) => {
+      if (err) {
+        return console.log(err);
+      }
+      res.json(result);
+    });
+  });
+});
+
+// Delete Site
+app.post('/sites/delete', (req, res) => {
+  console.log(req.body);
+  const sql = `DELETE FROM Site WHERE site_id = ${req.body.site_id}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      return console.log(err);
+    }  
+    db.query('SELECT * FROM Site', (err, result, fields) => {
+      if (err) {
+        return console.log(err);
+      }
+      res.json(result);
+    });
+  });  
+});
+
+/* ------------------- Settings Route ------------------- */
+
+// Read Settings
+app.get('/settings', (req, res) => {
+  res.json(settings);
+});
+
+// Update Settings
+app.post('/settings/edit', (req, res) => {
+  var sql = "UPDATE Setting SET address = 'Canyon 123' WHERE setting_id = ";
+  db.query(sql, (err, result) => {
+    if (err) {
+      return console.log(err);
+    }
+    res.json(result);
+  });
 });
 
 

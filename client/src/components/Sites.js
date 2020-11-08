@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Grid, Button } from '@material-ui/core';
 import { RemoveCircleOutline, AddCircleOutline, DesktopWindows } from '@material-ui/icons';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -24,23 +25,9 @@ const useStyles = makeStyles({
 });
 
 const Sites = () => {
-  const starterSites = [
-    'www.dockers.com',
-    'www.adidas.com',
-    'www.nike.com',
-    'www.underarmour.com',
-    'www.newbalance.com',
-    'www.puma.com',
-    'www.prada.com',
-    'www.fredperry.com',
-    'www.caterpillar.com',
-    'www.gucci.com',
-    'www.allenedmonds.com',
-    'www.brunomagli.com',
-    'www.diesel.com'
-  ];
-
-  const [sites, setSites] = useState(starterSites);
+  const SITES_URL = 'http://localhost:8000/sites';
+  
+  const [sites, setSites] = useState([]);
   const [newSite, setNewSite] = useState('');
   
   const handleChange = (e) => {
@@ -49,18 +36,39 @@ const Sites = () => {
   
   const handleSubmit = (e) => {
     if (newSite !== '') {
-      setSites([
-        ...sites, newSite
-      ]);
-      setNewSite('');
+      console.log(newSite);
+      axios.post(`${SITES_URL}/create`, {
+        data: newSite
+      })
+      .then(res => {
+        console.log(res.data);
+        setSites(res.data);
+        setNewSite('');
+      })
+      .catch(err => console.log(err));
     }
   };
   
-  const handleClear = (index) => {
-    let currentSites = [...sites];
-    currentSites.splice(index, 1);
-    setSites(currentSites);
+  const handleClear = (id) => {
+    console.log(id);
+    axios.post(`${SITES_URL}/delete`, {
+      site_id: id
+    })
+    .then(res => {
+      console.log(res.data);
+      setSites(res.data);
+    })
+    .catch(err => console.log(err));
   };
+  
+  useEffect(() => {
+    axios.get(SITES_URL)
+    .then(res => {
+      console.log(res.data);
+      setSites(res.data);
+    })
+    .catch(err => console.log(err));
+  }, []);
   
   const classes = useStyles();
   
@@ -89,14 +97,14 @@ const Sites = () => {
         </Grid>
         <div className="horizontal-divider"></div>
         <Grid container direction="column" wrap="nowrap" className="list-container">
-          {sites.map((site, index) =>
-            <Grid item key={index} class="list-item">
+          {sites.map((site) =>
+            <Grid item key={site.site_id} class="list-item">
               <Grid container alignItems="center" justify="space-between">
                 <Grid item>
-                  <p>{site}</p>
+                  <p>{site.data}</p>
                 </Grid>
                 <Grid item>
-                  <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(index)}>Clear</Button>
+                  <Button size="small" variant="outlined" className={classes.removeButton} startIcon={<RemoveCircleOutline />} onClick={() => handleClear(site.site_id)}>Clear</Button>
                 </Grid>
               </Grid>
             </Grid>
