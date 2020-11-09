@@ -27,20 +27,6 @@ app.listen(process.env.REACT_APP_SERVER_PORT, () => {
 
 /* ---------------- MySql Initialization ---------------- */
 
-// db.connect((err) => {
-//   if(err) {
-//     console.log(err);
-//   } else {
-//     console.log('Database is connected.');
-//   }
-// });
-
-const fs = require('fs');
-
-const settingsJSON = fs.readFileSync('./settings.json');
-const settings = JSON.parse(settingsJSON);
-console.log(settings);
-
 // Testing route
 app.get('/', (req, res) => {
   res.json({message: 'Welcome to Google AdWords Configurator!'});
@@ -140,19 +126,36 @@ app.post('/sites/delete', (req, res) => {
 
 /* ------------------- Settings Route ------------------- */
 
-// Read Settings
+// Read Setting
 app.get('/settings', (req, res) => {
-  res.json(settings);
+  // res.json(settings);
+  pool.query('SELECT * FROM Setting', (err, result, fields) => {
+    if (err) {
+      return console.log(err);
+    }
+    const settings = JSON.parse(result[0].data);
+    const settings_id = result[0].id;
+    res.json({settings, settings_id});
+  });
 });
 
-// Update Settings
+// Update Setting
 app.post('/settings/edit', (req, res) => {
-  var sql = "UPDATE Setting SET address = 'Canyon 123' WHERE setting_id = ";
+  console.log(req.body.settings);
+  console.log(req.body.id);
+  const settings = JSON.stringify(req.body.settings)
+  const sql = `UPDATE Setting SET data = '${settings}' WHERE id = '${req.body.id}'`;
   pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }
-    res.json(result);
+    pool.query('SELECT * FROM Setting', (err, result, fields) => {
+      if (err) {
+        return console.log(err);
+      }
+      const settings = JSON.parse(result[0].data);
+      res.json(settings);
+    });
   });
 });
 

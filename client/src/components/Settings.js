@@ -128,6 +128,7 @@ const Settings = () => {
   const SETTINGS_URL = 'http://localhost:8000/settings';
   
   const [settings, setSettings] = useState(undefined);
+  const [settingsID, setSettingsID] = useState(0);
   
   const handleCheckbox = (e) => {
     console.log(e);
@@ -195,23 +196,32 @@ const Settings = () => {
   };
   
   const handleExportClick = () => {
-    alert('Export Report button clicked!')
+    alert('Export Report button clicked!');
   };
   
   const handleStopClick = () => {
-    alert('Stop button clicked!')
+    alert('Stop button clicked!');
   };
   
   const handleStartClick = () => {
-    alert('Start button clicked!')
-  };
-  
-  useEffect(() => {
-    console.log(settings);
-    axios.get(SETTINGS_URL)
+    alert('Setting data saved!');
+    axios.post(`${SETTINGS_URL}/edit`, {
+      settings: settings,
+      id: settingsID
+    })
     .then(res => {
       console.log(res.data);
       setSettings(res.data);
+    })
+    .catch(err => console.log(err));
+  };
+  
+  useEffect(() => {
+    axios.get(SETTINGS_URL)
+    .then(res => {
+      console.log(res.data);
+      setSettings(res.data.settings);
+      setSettingsID(res.data.settings_id);
     })
     .catch(err => console.log(err));
   }, []);

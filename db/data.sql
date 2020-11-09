@@ -89,21 +89,49 @@ COMMIT;
 
 CREATE TABLE IF NOT EXISTS Setting (
   id int(255) NOT NULL,
-  wait_sec_min int(255) NOT NULL,
-  wait_sec_max int(255) NOT NULL,
-  visit_within_site BOOLEAN,
-  page_nums int(255) NOT NULL,
-  page_visit_sec_min int(255) NOT NULL,
-  page_visit_sec_max int(255) NOT NULL,
-  after_op_wait_sec_min int(255) NOT NULL,
-  after_op_wait_sec_max int(255) NOT NULL,
-  target_sites int(255) NOT NULL,
-  target_site_wait_mins int(255) NOT NULL,
-  auto_reset_times int(255) NOT NULL
+  data JSON
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO Setting (id, wait_sec_min, wait_sec_max, visit_within_site, page_nums, page_visit_sec_min, page_visit_sec_max, after_op_wait_sec_min, after_op_wait_sec_max, target_sites, target_site_wait_mins, auto_reset_times) VALUES
-(1, 40, 55, true, 1, 30, 50, 5, 10, 10, 20, 1);
+INSERT INTO Setting (id, data) VALUES
+(1, '{
+  "browsers": {
+    "chrome": false,
+    "firefox": false,
+    "explorer": true,
+    "safari": false,
+    "opera": false,
+    "incognito": true
+  },
+  "inputs": {
+    "wait_seconds_1": 40,
+    "wait_seconds_2": 55,
+    "visit_within_site": true,
+    "page_numbers": 1,
+    "page_visit_seconds_1": 30,
+    "page_visit_seconds_2": 50,
+    "after_operation_wait_seconds_1": 5,
+    "after_operation_wait_seconds_2": 10,
+    "target_sites": 10,
+    "target_site_wait_minutes": 20,
+    "auto_reset_times": 1
+  },
+  "devices": {
+    "device_reset": false,
+    "vinn_reset": false,
+    "phone_reset": true,
+    "mobile_data": true,
+    "fly_mode": false
+  },
+  "options": {
+    "remove_cookies": true,
+    "change_resolution": false,
+    "mouse_tracks": false,
+    "data_saving_mode": true,
+    "random_generate": false,
+    "analytics_protection": true,
+    "remove_history": false
+  }
+}');
 
 ALTER TABLE Setting
   ADD PRIMARY KEY (id);
@@ -111,59 +139,6 @@ ALTER TABLE Setting
 ALTER TABLE Setting
   MODIFY id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
-
--- Table structure for table 'Browser' ---------------------
-
-CREATE TABLE IF NOT EXISTS Browser (
-  id int(255) NOT NULL,
-  chrome BOOLEAN,
-  firefox BOOLEAN,
-  explorer BOOLEAN,
-  safari BOOLEAN,
-  opera BOOLEAN,
-  incognito BOOLEAN,
-  setting_id int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO Browser (id, chrome, firefox, explorer, safari, opera, incognito, setting_id) VALUES
-(1, false, false, true, false, false, true, 1);
-
-ALTER TABLE Browser
-  ADD PRIMARY KEY (id),
-  ADD FOREIGN KEY (setting_id) REFERENCES Setting(id);
-
-ALTER TABLE Browser
-  MODIFY id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
--- INSERT INTO Setting ('setting_id', 'data') VALUES
--- (1, '{
---   "browsers": {
---     "chrome": false,
---     "firefox": false,
---     "explorer": true,
---     "safari": false,
---     "opera": false，
---     "incognito": true
---   },
---   "devices": {
---     "device_reset": false,
---     "vinn_reset": false,
---     "phone_reset": true,
---     "mobile_data": true,
---     "fly_mode": false
---   },
---   "options": {
---     "remove_cookies": true,
---     "change_resolution": false,
---     "mouse_tracks": false,
---     "data_saving_mode": true,
---     "random_generate": false,
---     "analytics_protection": true,
---     "remove_history": false
---   }
--- }');
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
