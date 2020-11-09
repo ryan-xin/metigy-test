@@ -286,7 +286,7 @@ const Settings = () => {
                   </Grid>
                 </Grid>
                 <Grid item className="incognito-container">
-                  <div id="browsers.incognito" className={settings.browsers.incognito ? "checkbox-border yellow-border yellow-border-checked" : "checkbox-border yellow-border"}>
+                  <div id="browsers-incognito" className={settings.browsers.incognito ? "checkbox-border yellow-border yellow-border-checked" : "checkbox-border yellow-border"}>
                     <FormControlLabel
                       control={<Checkbox name="incognito" size="small" checked={settings.browsers.incognito} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconBrowsers, classes.checkboxCheckedIconBrowsers)} />} icon={<span className={classes.checkboxIconBrowsers} />} value="browsers" />}
                       label={<Typography className={classes.checkBoxLabel}>Incognito</Typography>}

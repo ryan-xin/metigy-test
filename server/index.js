@@ -46,7 +46,6 @@ app.get('/keywords', (req, res) => {
 
 // Create Keyword
 app.post('/keywords/create', (req, res) => {
-  console.log(req.body);
   const sql = `INSERT INTO Keyword (word) VALUES ('${req.body.word}')`;
   pool.query(sql, (err, result) => {
     if (err) {
@@ -63,7 +62,6 @@ app.post('/keywords/create', (req, res) => {
 
 // Delete Keyword
 app.post('/keywords/delete', (req, res) => {
-  console.log(req.body);
   const sql = `DELETE FROM Keyword WHERE id = ${req.body.id}`;
   pool.query(sql, (err, result) => {
     if (err) {
@@ -92,7 +90,6 @@ app.get('/sites', (req, res) => {
 
 // Create Site
 app.post('/sites/create', (req, res) => {
-  console.log(req.body);
   const sql = `INSERT INTO Site (url) VALUES ('${req.body.url}')`;
   pool.query(sql, (err, result) => {
     if (err) {
@@ -109,7 +106,6 @@ app.post('/sites/create', (req, res) => {
 
 // Delete Site
 app.post('/sites/delete', (req, res) => {
-  console.log(req.body);
   const sql = `DELETE FROM Site WHERE id = ${req.body.id}`;
   pool.query(sql, (err, result) => {
     if (err) {
@@ -128,7 +124,6 @@ app.post('/sites/delete', (req, res) => {
 
 // Read Setting
 app.get('/settings', (req, res) => {
-  // res.json(settings);
   pool.query('SELECT * FROM Setting', (err, result, fields) => {
     if (err) {
       return console.log(err);
@@ -141,8 +136,6 @@ app.get('/settings', (req, res) => {
 
 // Update Setting
 app.post('/settings/edit', (req, res) => {
-  console.log(req.body.settings);
-  console.log(req.body.id);
   const settings = JSON.stringify(req.body.settings)
   const sql = `UPDATE Setting SET data = '${settings}' WHERE id = '${req.body.id}'`;
   pool.query(sql, (err, result) => {
