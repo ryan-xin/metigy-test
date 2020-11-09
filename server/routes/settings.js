@@ -11,6 +11,9 @@ const getSetting = (req, res) => {
   const sql = `SELECT * FROM Setting WHERE id = '${req.params.id}'`;
   pool.query(sql, (err, result, fields) => {
     if (err) {
+      res.json({
+        errorMessage: "No data found. Please try later."
+      });
       return console.log(err);
     }
     const settings = JSON.parse(result[0].data);
@@ -24,6 +27,9 @@ const updateSetting = (req, res) => {
   const sql = `UPDATE Setting SET data = '${settings}' WHERE id = '${req.params.id}'`;
   pool.query(sql, (err, result) => {
     if (err) {
+      res.json({
+        errorMessage: "Update failed. Please try later."
+      });
       return console.log(err);
     }
     pool.query('SELECT * FROM Setting', (err, result, fields) => {

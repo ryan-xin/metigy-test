@@ -124,9 +124,6 @@ const useStyles = makeStyles({
     "& .MuiOutlinedInput-input": {
       color: "#FFFFFF"
     }
-  },
-  alertBox: {
-    // height: "40px"
   }
 });
 
@@ -137,8 +134,10 @@ const Settings = () => {
   const SETTINGS_URL = 'http://localhost:8000/settings';
   
   const [settings, setSettings] = useState(undefined);
-  const [showAlert, setShowAlert] = useState();
-  const [alertMessage, setAlertMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState();
+  const [successMessage, setSuccessMessage] = useState('');
+  const [showError, setShowError] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
   
   // Update checkbox state
   const handleCheckbox = (e) => {
@@ -198,27 +197,30 @@ const Settings = () => {
   
   // Export Report function
   const handleExportClick = () => {
-    setAlertMessage('Report exported!');
-    setShowAlert(true);
+    setSuccessMessage('Report exported!');
+    setShowSuccess(true);
   };
   
   // Stop function
   const handleStopClick = () => {
-    setAlertMessage('Progress stopped!');
-    setShowAlert(true);
+    setSuccessMessage('Progress stopped!');
+    setShowSuccess(true);
   };
   
   // Start function and save setting data to backend
   const handleStartClick = () => {
-    setAlertMessage('Setting data saved!');
-    setShowAlert(true);
     axios.post(`${SETTINGS_URL}/${settingsID}/edit`, {
       settings: settings
     })
     .then(res => {
       setSettings(res.data);
+      setSuccessMessage('Setting data saved! You could refresh the page.');
+      setShowSuccess(true);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      setErrorMessage(err.errorMessage);
+      setShowError(true);
+    });
   };
   
   // Get setting data from backend
@@ -228,7 +230,10 @@ const Settings = () => {
     .then(res => {
       setSettings(res.data); // Save setting to settings
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      setErrorMessage(err.errorMessage);
+      setShowError(true);
+    });
   }, []);
   
   const classes = useStyles();
@@ -560,11 +565,19 @@ const Settings = () => {
         </Grid>
         )
       }
-      <div className="alert-message">
-        {showAlert && (
-          <Alert variant="filled" severity="success" className={classes.alertBox} action={<IconButton aria-label="close" color="inherit" size="small" onClick={() => {setShowAlert(false);}}>
+      <div className="success-message">
+        {showSuccess && (
+          <Alert variant="filled" severity="success" action={<IconButton aria-label="close" color="inherit" size="small" onClick={() => {setShowSuccess(false);}}>
           <Cancel fontSize="inherit" /></IconButton>}>
-            {alertMessage}
+            {successMessage}
+          </Alert>
+        )}
+      </div>
+      <div className="error-message">
+        {showError && (
+          <Alert variant="filled" severity="warning" action={<IconButton aria-label="close" color="inherit" size="small" onClick={() => {setShowError(false);}}>
+          <Cancel fontSize="inherit" /></IconButton>}>
+            {errorMessage}
           </Alert>
         )}
       </div>

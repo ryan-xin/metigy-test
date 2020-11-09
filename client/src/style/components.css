@@ -179,9 +179,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* -------------------- Alert Message ------------------- */
 
-.alert-message {
+.success-message {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 300px;
 }
