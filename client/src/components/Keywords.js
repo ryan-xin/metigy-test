@@ -5,6 +5,7 @@ import { RemoveCircleOutline, AddCircleOutline, BookmarkBorder } from '@material
 import makeStyles from '@material-ui/styles/makeStyles';
 import '../style/components.css';
 
+// Customize Material UI button style
 const useStyles = makeStyles({
   removeButton: {
     color: "#FFFFFF", 
@@ -30,18 +31,18 @@ const Keywords = () => {
   const [keywords, setKeywords] = useState([]);
   const [newKeyword, setNewKeyword] = useState('');
   
+  // Get new keyword from input field
   const handleChange = (e) => {
     setNewKeyword(e.target.value);
   };
   
+  // Save new keyword to database
   const handleSubmit = (e) => {
     if (newKeyword !== '') {
-      console.log(newKeyword);
       axios.post(`${KEYWORDS_URL}/create`, {
         word: newKeyword
       })
       .then(res => {
-        console.log(res.data);
         setKeywords(res.data);
         setNewKeyword('');
       })
@@ -49,22 +50,21 @@ const Keywords = () => {
     }
   };
   
+  // Remove keyword to database
   const handleClear = (id) => {
-    console.log(id);
     axios.post(`${KEYWORDS_URL}/delete`, {
-      id: id
+      id: id // In backend find with id and then delete
     })
     .then(res => {
-      console.log(res.data);
       setKeywords(res.data);
     })
     .catch(err => console.log(err));
   };
   
+  // Get all keywords from backend
   useEffect(() => {
     axios.get(KEYWORDS_URL)
     .then(res => {
-      console.log(res.data);
       setKeywords(res.data);
     })
     .catch(err => console.log(err));

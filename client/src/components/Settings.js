@@ -6,14 +6,16 @@ import { PauseCircleOutline, PlayCircleOutline, Settings as SettingsIcon } from 
 import makeStyles from '@material-ui/styles/makeStyles';
 import '../style/components.css';
 
+// Checkbox tick icon svg base url
 const svgBaseURL = "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath" + " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 ";
-
+// Checkbox tick icon yellow
 const tickIconYellow = svgBaseURL + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23FDBD01'/%3E%3C/svg%3E\")"
-
+// Checkbox tick icon blue
 const tickIconBlue = svgBaseURL + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%230086F9'/%3E%3C/svg%3E\")"
-
+// Checkbox tick icon green
 const tickIconGreen = svgBaseURL + "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%2300A94D'/%3E%3C/svg%3E\")"
 
+// Customize button and input style
 const useStyles = makeStyles({
   exportButton: {
     background: "#FDBD01",
@@ -66,7 +68,7 @@ const useStyles = makeStyles({
       content: "''",
     }
   },
-  checkboxIconDevices: {
+  checkboxIconModes: {
     borderRadius: 3,
     width: 16,
     height: 16,
@@ -75,7 +77,7 @@ const useStyles = makeStyles({
       border: "1px solid #00A94D",
     },
   },
-  checkboxCheckedIconDevices: {
+  checkboxCheckedIconModes: {
     border: "1px solid #00A94D",
     "&:before": {
       display: "block",
@@ -85,7 +87,7 @@ const useStyles = makeStyles({
       content: "''",
     }
   },
-  checkboxIconOptions: {
+  checkboxIconActions: {
     borderRadius: 3,
     width: 16,
     height: 16,
@@ -94,7 +96,7 @@ const useStyles = makeStyles({
       border: "1px solid #0086F9",
     },
   },
-  checkboxCheckedIconOptions: {
+  checkboxCheckedIconActions: {
     border: "1px solid #0086F9",
     "&:before": {
       display: "block",
@@ -130,79 +132,73 @@ const Settings = () => {
   const [settings, setSettings] = useState(undefined);
   const [settingsID, setSettingsID] = useState(0);
   
+  // Update checkbox state
   const handleCheckbox = (e) => {
-    console.log(e);
     const sectionName = e.target.value;
     const targetName = e.target.name;
     const currentChecked = e.target.checked;
     const checkboxID = `${sectionName}-${targetName}`
-    console.log(sectionName);
-    console.log(targetName);
-    console.log(currentChecked);
-    console.log(checkboxID);
-    if (currentChecked === true) {
+    // Change checkbox border color based on sectionName
+    if (currentChecked === true) { 
+      // When checked add checked class name
       if (sectionName === 'browsers') {
         document.getElementById(checkboxID).classList.add('yellow-border-checked');
-      } else if (sectionName === 'devices') {
+      } else if (sectionName === 'modes') {
         document.getElementById(checkboxID).classList.add('green-border-checked');
-      } else if (sectionName === 'options') {
+      } else if (sectionName === 'actions') {
         document.getElementById(checkboxID).classList.add('blue-border-checked');
       }
     } else if (currentChecked === false) {
+        // When unchecked remove checked class name
         if (sectionName === 'browsers') {
           document.getElementById(checkboxID).classList.remove('yellow-border-checked');
-        } else if (sectionName === 'devices') {
+        } else if (sectionName === 'modes') {
           document.getElementById(checkboxID).classList.remove('green-border-checked');
-        } else if (sectionName === 'options') {
+        } else if (sectionName === 'actions') {
           document.getElementById(checkboxID).classList.remove('blue-border-checked');
         }
     }
+    // Update settings state
     setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentChecked}});
   };
   
+  // Update input state
   const handleInput = (e) => {
-    console.log(e);
     const sectionName = e.target.attributes.id.nodeValue;
     const targetName = e.target.name;
     const currentValue = e.target.value;
-    console.log(sectionName);
-    console.log(targetName);
-    console.log(currentValue);
     setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
   };
   
+  // Increment input with plus icon
   const handleIncrement = (e) => {
-    console.log(e);
     const sectionName = e.target.attributes.section.nodeValue;
     const targetName = e.target.name;
     const currentValue = parseInt(e.target.value) + 1;
-    console.log(sectionName);
-    console.log(targetName);
-    console.log(currentValue);
     setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
   };
 
+  // Decrement input with minus icon
   const handleDecrement = (e) => {
-    console.log(e);
     const sectionName = e.target.attributes.section.nodeValue;
     const targetName = e.target.name;
     const currentValue = parseInt(e.target.value) - 1;
-    console.log(sectionName);
-    console.log(targetName);
-    console.log(currentValue);
     if (currentValue >= 0) {
       setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentValue}});
     }
   };
   
+  // Export Report function
   const handleExportClick = () => {
     alert('Export Report button clicked!');
   };
   
+  // Stop function
   const handleStopClick = () => {
     alert('Stop button clicked!');
   };
   
+  // Start function and save setting data to backend
   const handleStartClick = () => {
     alert('Setting data saved!');
     axios.post(`${SETTINGS_URL}/edit`, {
@@ -210,18 +206,17 @@ const Settings = () => {
       id: settingsID
     })
     .then(res => {
-      console.log(res.data);
       setSettings(res.data);
     })
     .catch(err => console.log(err));
   };
   
+  // Get setting data from backend
   useEffect(() => {
     axios.get(SETTINGS_URL)
     .then(res => {
-      console.log(res.data);
-      setSettings(res.data.settings);
-      setSettingsID(res.data.settings_id);
+      setSettings(res.data.settings); // Save setting to settings
+      setSettingsID(res.data.settings_id); // Save setting id to settingsID
     })
     .catch(err => console.log(err));
   }, []);
@@ -310,16 +305,16 @@ const Settings = () => {
                     </Grid>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="wait_seconds_1" value={settings.inputs.wait_seconds_1} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
-                        <button className="counter-button increment-button" name="wait_seconds_1" section="inputs" value={settings.inputs.wait_seconds_1} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="wait_seconds_1" section="inputs" value={settings.inputs.wait_seconds_1} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="wait_secs_min" value={settings.inputs.wait_secs_min} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="wait_secs_min" section="inputs" value={settings.inputs.wait_secs_min} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="wait_secs_min" section="inputs" value={settings.inputs.wait_secs_min} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="wait_seconds_2" value={settings.inputs.wait_seconds_2} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
-                        <button className="counter-button increment-button" name="wait_seconds_2" section="inputs" value={settings.inputs.wait_seconds_2} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="wait_seconds_2" section="inputs" value={settings.inputs.wait_seconds_2} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="wait_secs_max" value={settings.inputs.wait_secs_max} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="wait_secs_max" section="inputs" value={settings.inputs.wait_secs_max} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="wait_secs_max" section="inputs" value={settings.inputs.wait_secs_max} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
@@ -337,9 +332,9 @@ const Settings = () => {
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="page_numbers" value={settings.inputs.page_numbers} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
-                        <button className="counter-button increment-button" name="page_numbers" section="inputs" value={settings.inputs.page_numbers} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="page_numbers" section="inputs" value={settings.inputs.page_numbers} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="page_nums" value={settings.inputs.page_nums} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="page_nums" section="inputs" value={settings.inputs.page_nums} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="page_nums" section="inputs" value={settings.inputs.page_nums} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
@@ -347,16 +342,16 @@ const Settings = () => {
                     </Grid>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="page_visit_seconds_1" value={settings.inputs.page_visit_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
-                        <button className="counter-button increment-button" name="page_visit_seconds_1" section="inputs" value={settings.inputs.page_visit_seconds_1} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="page_visit_seconds_1" section="inputs" value={settings.inputs.page_visit_seconds_1} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="page_visit_secs_min" value={settings.inputs.page_visit_secs_min} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="page_visit_secs_min" section="inputs" value={settings.inputs.page_visit_secs_min} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="page_visit_secs_min" section="inputs" value={settings.inputs.page_visit_secs_min} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="page_visit_seconds_2" value={settings.inputs.page_visit_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 10 } }} />
-                        <button className="counter-button increment-button" name="page_visit_seconds_2" section="inputs" value={settings.inputs.page_visit_seconds_2} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="page_visit_seconds_2" section="inputs" value={settings.inputs.page_visit_seconds_2} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="page_visit_secs_max" value={settings.inputs.page_visit_secs_max} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 10 } }} />
+                        <button className="counter-button increment-button" name="page_visit_secs_max" section="inputs" value={settings.inputs.page_visit_secs_max} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="page_visit_secs_max" section="inputs" value={settings.inputs.page_visit_secs_max} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
@@ -371,16 +366,16 @@ const Settings = () => {
                     </Grid>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="after_operation_wait_seconds_1" value={settings.inputs.after_operation_wait_seconds_1} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
-                        <button className="counter-button increment-button" name="after_operation_wait_seconds_1" section="inputs" value={settings.inputs.after_operation_wait_seconds_1} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="after_operation_wait_seconds_1" section="inputs" value={settings.inputs.after_operation_wait_seconds_1} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="after_op_wait_secs_min" value={settings.inputs.after_op_wait_secs_min} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="after_op_wait_secs_min" section="inputs" value={settings.inputs.after_op_wait_secs_min} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="after_op_wait_secs_min" section="inputs" value={settings.inputs.after_op_wait_secs_min} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="after_operation_wait_seconds_2" value={settings.inputs.after_operation_wait_seconds_2} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
-                        <button className="counter-button increment-button" name="after_operation_wait_seconds_2" section="inputs" value={settings.inputs.after_operation_wait_seconds_2} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="after_operation_wait_seconds_2" section="inputs" value={settings.inputs.after_operation_wait_seconds_2} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="after_op_wait_secs_max" value={settings.inputs.after_op_wait_secs_max} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="after_op_wait_secs_max" section="inputs" value={settings.inputs.after_op_wait_secs_max} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="after_op_wait_secs_max" section="inputs" value={settings.inputs.after_op_wait_secs_max} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
@@ -405,9 +400,9 @@ const Settings = () => {
                     </Grid>
                     <Grid item>
                       <div className="input-counter">
-                        <TextField type="number" size="small" name="target_site_wait_minutes" value={settings.inputs.target_site_wait_minutes} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
-                        <button className="counter-button increment-button" name="target_site_wait_minutes" section="inputs" value={settings.inputs.target_site_wait_minutes} onClick={handleIncrement}>+</button>
-                        <button className="counter-button decrement-button" name="target_site_wait_minutes" section="inputs" value={settings.inputs.target_site_wait_minutes} onClick={handleDecrement}>-</button>
+                        <TextField type="number" size="small" name="target_site_wait_mins" value={settings.inputs.target_site_wait_mins} min={0} max={100} onChange={handleInput} id="inputs" variant="outlined" className={classes.inputFieldRoot} InputProps={{ inputProps: { min: 0, max: 100 }}} />
+                        <button className="counter-button increment-button" name="target_site_wait_mins" section="inputs" value={settings.inputs.target_site_wait_mins} onClick={handleIncrement}>+</button>
+                        <button className="counter-button decrement-button" name="target_site_wait_mins" section="inputs" value={settings.inputs.target_site_wait_mins} onClick={handleDecrement}>-</button>
                       </div>
                     </Grid>
                     <Grid item>
@@ -433,44 +428,44 @@ const Settings = () => {
             </div>
           </Grid>
           <Grid item className="sub-container">
-            <div className="device-container">
+            <div className="mode-container">
               <Grid container spacing={2}>
                 <Grid item>
-                  <div id="devices-device_reset" className={settings.devices.device_reset ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
+                  <div id="modes-device_reset" className={settings.modes.device_reset ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="device_reset" size="small" checked={settings.devices.device_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
+                      control={<Checkbox name="device_reset" size="small" checked={settings.modes.device_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconModes, classes.checkboxCheckedIconModes)} />} icon={<span className={classes.checkboxIconModes} />} value="modes" />}
                       label={<Typography className={classes.checkBoxLabel}>Device Reset</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="devices-vinn_reset" className={settings.devices.vinn_reset ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
+                  <div id="modes-vinn_reset" className={settings.modes.vinn_reset ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="vinn_reset" size="small" checked={settings.devices.vinn_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
+                      control={<Checkbox name="vinn_reset" size="small" checked={settings.modes.vinn_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconModes, classes.checkboxCheckedIconModes)} />} icon={<span className={classes.checkboxIconModes} />} value="modes" />}
                       label={<Typography className={classes.checkBoxLabel}>Vinn Reset</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="devices-phone_reset" className={settings.devices.phone_reset ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
+                  <div id="modes-phone_reset" className={settings.modes.phone_reset ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="phone_reset" size="small" checked={settings.devices.phone_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
+                      control={<Checkbox name="phone_reset" size="small" checked={settings.modes.phone_reset} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconModes, classes.checkboxCheckedIconModes)} />} icon={<span className={classes.checkboxIconModes} />} value="modes" />}
                       label={<Typography className={classes.checkBoxLabel}>Phone Reset</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="devices-mobile_data" className={settings.devices.mobile_data ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
+                  <div id="modes-mobile_data" className={settings.modes.mobile_data ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="mobile_data" size="small" checked={settings.devices.mobile_data} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
+                      control={<Checkbox name="mobile_data" size="small" checked={settings.modes.mobile_data} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconModes, classes.checkboxCheckedIconModes)} />} icon={<span className={classes.checkboxIconModes} />} value="modes" />}
                       label={<Typography className={classes.checkBoxLabel}>Mobile Data</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="devices-fly_mode" className={settings.devices.fly_mode ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
+                  <div id="modes-fly_mode" className={settings.modes.fly_mode ? "checkbox-border green-border green-border-checked" : "checkbox-border green-border"}>
                   <FormControlLabel
-                    control={<Checkbox name="fly_mode" size="small" checked={settings.devices.fly_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconDevices, classes.checkboxCheckedIconDevices)} />} icon={<span className={classes.checkboxIconDevices} />} value="devices" />}
+                    control={<Checkbox name="fly_mode" size="small" checked={settings.modes.fly_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconModes, classes.checkboxCheckedIconModes)} />} icon={<span className={classes.checkboxIconModes} />} value="modes" />}
                     label={<Typography className={classes.checkBoxLabel}>Fly Mode</Typography>}
                   />
                   </div>
@@ -478,60 +473,60 @@ const Settings = () => {
               </Grid>
             </div>
             <div className="horizontal-divider"></div>
-            <div className="option-container">
+            <div className="action-container">
               <Grid container spacing={2}>
                 <Grid item>
-                  <div id="options-remove_cookies" className={settings.options.remove_cookies ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
+                  <div id="actions-remove_cookies" className={settings.actions.remove_cookies ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="remove_cookies" size="small" checked={settings.options.remove_cookies} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
+                      control={<Checkbox name="remove_cookies" size="small" checked={settings.actions.remove_cookies} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconActions, classes.checkboxCheckedIconActions)} />} icon={<span className={classes.checkboxIconActions} />} value="actions" />}
                       label={<Typography className={classes.checkBoxLabel}>Remove Cookies</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="options-change_resolution" className={settings.options.change_resolution ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
+                  <div id="actions-change_resolution" className={settings.actions.change_resolution ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="change_resolution" size="small" checked={settings.options.change_resolution} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
+                      control={<Checkbox name="change_resolution" size="small" checked={settings.actions.change_resolution} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconActions, classes.checkboxCheckedIconActions)} />} icon={<span className={classes.checkboxIconActions} />} value="actions" />}
                       label={<Typography className={classes.checkBoxLabel}>Change Resolution</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="options-mouse_tracks" className={settings.options.mouse_tracks ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
+                  <div id="actions-mouse_tracks" className={settings.actions.mouse_tracks ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="mouse_tracks" size="small" checked={settings.options.mouse_tracks} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
+                      control={<Checkbox name="mouse_tracks" size="small" checked={settings.actions.mouse_tracks} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconActions, classes.checkboxCheckedIconActions)} />} icon={<span className={classes.checkboxIconActions} />} value="actions" />}
                       label={<Typography className={classes.checkBoxLabel}>Mouse Tracks</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="options-data_saving_mode" className={settings.options.data_saving_mode ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
+                  <div id="actions-data_saving_mode" className={settings.actions.data_saving_mode ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="data_saving_mode" size="small" checked={settings.options.data_saving_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
+                      control={<Checkbox name="data_saving_mode" size="small" checked={settings.actions.data_saving_mode} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconActions, classes.checkboxCheckedIconActions)} />} icon={<span className={classes.checkboxIconActions} />} value="actions" />}
                       label={<Typography className={classes.checkBoxLabel}>Data Saving Mode</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="options-random_generate" className={settings.options.random_generate ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
+                  <div id="actions-random_generate" className={settings.actions.random_generate ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="random_generate" size="small" checked={settings.options.random_generate} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
+                      control={<Checkbox name="random_generate" size="small" checked={settings.actions.random_generate} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconActions, classes.checkboxCheckedIconActions)} />} icon={<span className={classes.checkboxIconActions} />} value="actions" />}
                       label={<Typography className={classes.checkBoxLabel}>Random Generate</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="options-analytics_protection" className={settings.options.analytics_protection ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
+                  <div id="actions-analytics_protection" className={settings.actions.analytics_protection ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
                     <FormControlLabel
-                      control={<Checkbox name="analytics_protection" size="small" checked={settings.options.analytics_protection} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
+                      control={<Checkbox name="analytics_protection" size="small" checked={settings.actions.analytics_protection} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconActions, classes.checkboxCheckedIconActions)} />} icon={<span className={classes.checkboxIconActions} />} value="actions" />}
                       label={<Typography className={classes.checkBoxLabel}>Analytics Protection</Typography>}
                     />
                   </div>
                 </Grid>
                 <Grid item>
-                  <div id="options-remove_history" className={settings.options.remove_history ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
+                  <div id="actions-remove_history" className={settings.actions.remove_history ? "checkbox-border blue-border blue-border-checked" : "checkbox-border blue-border"}>
                   <FormControlLabel
-                    control={<Checkbox name="remove_history" size="small" checked={settings.options.remove_history} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconOptions, classes.checkboxCheckedIconOptions)} />} icon={<span className={classes.checkboxIconOptions} />} value="options" />}
+                    control={<Checkbox name="remove_history" size="small" checked={settings.actions.remove_history} onChange={handleCheckbox} className={classes.checkboxStyle} checkedIcon={<span className={clsx(classes.checkboxIconActions, classes.checkboxCheckedIconActions)} />} icon={<span className={classes.checkboxIconActions} />} value="actions" />}
                     label={<Typography className={classes.checkBoxLabel}>Remove History</Typography>}
                   />
                   </div>

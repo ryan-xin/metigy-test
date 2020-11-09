@@ -5,6 +5,7 @@ import { RemoveCircleOutline, AddCircleOutline, DesktopWindows } from '@material
 import makeStyles from '@material-ui/styles/makeStyles';
 import '../style/components.css';
 
+// Customize Material UI button style
 const useStyles = makeStyles({
   removeButton: {
     color: "#FFFFFF", 
@@ -30,18 +31,18 @@ const Sites = () => {
   const [sites, setSites] = useState([]);
   const [newSite, setNewSite] = useState('');
   
+  // Get new site from input field
   const handleChange = (e) => {
     setNewSite(e.target.value);
   };
   
+  // Save new site to database
   const handleSubmit = (e) => {
     if (newSite !== '') {
-      console.log(newSite);
       axios.post(`${SITES_URL}/create`, {
         url: newSite
       })
       .then(res => {
-        console.log(res.data);
         setSites(res.data);
         setNewSite('');
       })
@@ -49,22 +50,21 @@ const Sites = () => {
     }
   };
   
+  // Remove site to database
   const handleClear = (id) => {
-    console.log(id);
     axios.post(`${SITES_URL}/delete`, {
-      id: id
+      id: id // In backend find with id and then delete
     })
     .then(res => {
-      console.log(res.data);
       setSites(res.data);
     })
     .catch(err => console.log(err));
   };
   
+  // Get all sites from backend
   useEffect(() => {
     axios.get(SITES_URL)
     .then(res => {
-      console.log(res.data);
       setSites(res.data);
     })
     .catch(err => console.log(err));

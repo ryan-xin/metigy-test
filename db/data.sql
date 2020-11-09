@@ -1,22 +1,7 @@
--- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
---
--- Host: mysql
--- Generation Time: Jun 27, 2019 at 01:14 AM
--- Server version: 5.7.26
--- PHP Version: 7.2.19
-
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = '+00:0';
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 
 -- Database: 'metigy_test' ---------------------
 
@@ -103,26 +88,26 @@ INSERT INTO Setting (id, data) VALUES
     "incognito": true
   },
   "inputs": {
-    "wait_seconds_1": 40,
-    "wait_seconds_2": 55,
+    "wait_secs_min": 40,
+    "wait_secs_max": 55,
     "visit_within_site": true,
-    "page_numbers": 1,
-    "page_visit_seconds_1": 30,
-    "page_visit_seconds_2": 50,
-    "after_operation_wait_seconds_1": 5,
-    "after_operation_wait_seconds_2": 10,
+    "page_nums": 1,
+    "page_visit_secs_min": 30,
+    "page_visit_secs_max": 50,
+    "after_op_wait_secs_min": 5,
+    "after_op_wait_secs_max": 10,
     "target_sites": 10,
-    "target_site_wait_minutes": 20,
+    "target_site_wait_mins": 20,
     "auto_reset_times": 1
   },
-  "devices": {
+  "modes": {
     "device_reset": false,
     "vinn_reset": false,
     "phone_reset": true,
     "mobile_data": true,
     "fly_mode": false
   },
-  "options": {
+  "actions": {
     "remove_cookies": true,
     "change_resolution": false,
     "mouse_tracks": false,
@@ -139,7 +124,3 @@ ALTER TABLE Setting
 ALTER TABLE Setting
   MODIFY id int (255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
