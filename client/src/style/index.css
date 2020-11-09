@@ -23,3 +23,10 @@ p {
   font-weight: 500;
 }
 
+/* -------------------- Small Desktop ------------------- */
+
+@media screen and (max-width: 1630px) {
+  body, html {
+    height: auto;
+  }  
+}
