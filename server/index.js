@@ -23,7 +23,7 @@ const keywordsRoutes = require('./routes/keywords');
 
 app.get('/keywords', keywordsRoutes.getKeyword);
 app.post('/keywords', keywordsRoutes.createKeyword);
-app.post('/keywords/:id/delete', keywordsRoutes.deleteKeyword);
+app.delete('/keywords/:id', keywordsRoutes.deleteKeyword);
 
 /* --------------------- Site Route -------------------- */
 
@@ -31,7 +31,7 @@ const sitesRoutes = require('./routes/sites');
 
 app.get('/sites', sitesRoutes.getSite);
 app.post('/sites', sitesRoutes.createSite);
-app.post('/sites/:id/delete', sitesRoutes.deleteSite);
+app.delete('/sites/:id', sitesRoutes.deleteSite);
 
 /* ------------------- Settings Route ------------------- */
 

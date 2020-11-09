@@ -52,7 +52,7 @@ const Sites = () => {
   
   // Remove site to database
   const handleClear = (id) => {
-    axios.post(`${SITES_URL}/${id}/delete`)
+    axios.delete(`${SITES_URL}/${id}`)
     .then(res => {
       setSites(res.data);
     })

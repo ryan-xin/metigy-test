@@ -52,7 +52,7 @@ const Keywords = () => {
   
   // Remove keyword to database
   const handleClear = (id) => {
-    axios.post(`${KEYWORDS_URL}/${id}/delete`)
+    axios.delete(`${KEYWORDS_URL}/${id}`)
     .then(res => {
       setKeywords(res.data);
     })

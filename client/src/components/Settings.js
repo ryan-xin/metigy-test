@@ -255,7 +255,7 @@ const Settings = () => {
           </Grid>
           <Grid item className="sub-container">
             <div>
-              <Grid container item="true">
+              <Grid container item>
                 <Grid item className="browser-container">
                   <Grid container spacing={2}>
                     <Grid item>

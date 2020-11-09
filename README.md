@@ -10,17 +10,18 @@ To build images, run:
 ``` 
  $ docker-compose build
  ```
+ 
+Before bring up the project, run:
+``` 
+ $ cd server
+ $ npm install
+ ```
 
 To bring the project up, run:
 ``` 
  $ docker-compose up
  ```
- 
-Before open front-end, run:
-``` 
- $ cd server
- $ npm install
- ```
+Go to http://localhost:3000/ to check the front-end
 
 To bring the project down, run:
 ``` 
