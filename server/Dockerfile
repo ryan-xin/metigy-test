@@ -4,9 +4,9 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY package.json /app
+RUN npm install nodemon -g
 COPY package-lock.json /app
 COPY . /app
-RUN npm install nodemon -g
 
 RUN npm install
 
