@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import axios from 'axios';
-import { Grid, Button, TextField, Checkbox, FormControlLabel, Typography } from '@material-ui/core';
-import { PauseCircleOutline, PlayCircleOutline, Settings as SettingsIcon } from '@material-ui/icons';
+import { Grid, Button, TextField, Checkbox, FormControlLabel, Typography, IconButton } from '@material-ui/core';
+import { PauseCircleOutline, PlayCircleOutline, Settings as SettingsIcon, Cancel } from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
 import makeStyles from '@material-ui/styles/makeStyles';
 import '../style/components.css';
 
@@ -123,6 +124,9 @@ const useStyles = makeStyles({
     "& .MuiOutlinedInput-input": {
       color: "#FFFFFF"
     }
+  },
+  alertBox: {
+    // height: "40px"
   }
 });
 
@@ -133,6 +137,8 @@ const Settings = () => {
   const SETTINGS_URL = 'http://localhost:8000/settings';
   
   const [settings, setSettings] = useState(undefined);
+  const [showAlert, setShowAlert] = useState();
+  const [alertMessage, setAlertMessage] = useState('');
   
   // Update checkbox state
   const handleCheckbox = (e) => {
@@ -192,17 +198,20 @@ const Settings = () => {
   
   // Export Report function
   const handleExportClick = () => {
-    alert('Export Report button clicked!');
+    setAlertMessage('Report exported!');
+    setShowAlert(true);
   };
   
   // Stop function
   const handleStopClick = () => {
-    alert('Stop button clicked!');
+    setAlertMessage('Progress stopped!');
+    setShowAlert(true);
   };
   
   // Start function and save setting data to backend
   const handleStartClick = () => {
-    alert('Setting data saved! You could reload the page.');
+    setAlertMessage('Setting data saved!');
+    setShowAlert(true);
     axios.post(`${SETTINGS_URL}/${settingsID}/edit`, {
       settings: settings
     })
@@ -536,7 +545,7 @@ const Settings = () => {
             </div>
           </Grid>
           <Grid item className="sub-container">
-            <Grid container xs={12} spacing={1} justify="space-between">
+            <Grid container xs={13} spacing={1} justify="space-between">
               <Grid item xs={6}>
                 <Button size="large" variant="contained" className={classes.exportButton} onClick={handleExportClick}>EXPORT REPORT</Button>
               </Grid>
@@ -551,6 +560,14 @@ const Settings = () => {
         </Grid>
         )
       }
+      <div className="alert-message">
+        {showAlert && (
+          <Alert variant="filled" severity="success" className={classes.alertBox} action={<IconButton aria-label="close" color="inherit" size="small" onClick={() => {setShowAlert(false);}}>
+          <Cancel fontSize="inherit" /></IconButton>}>
+            {alertMessage}
+          </Alert>
+        )}
+      </div>
     </div>
   );
 }

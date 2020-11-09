@@ -176,3 +176,12 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 100%;
   }
 }
+
+/* -------------------- Alert Message ------------------- */
+
+.alert-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+}
