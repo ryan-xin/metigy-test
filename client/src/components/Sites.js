@@ -39,7 +39,7 @@ const Sites = () => {
   // Save new site to database
   const handleSubmit = (e) => {
     if (newSite !== '') {
-      axios.post(`${SITES_URL}/create`, {
+      axios.post(SITES_URL, {
         url: newSite
       })
       .then(res => {
@@ -52,9 +52,7 @@ const Sites = () => {
   
   // Remove site to database
   const handleClear = (id) => {
-    axios.post(`${SITES_URL}/delete`, {
-      id: id // In backend find with id and then delete
-    })
+    axios.post(`${SITES_URL}/${id}/delete`)
     .then(res => {
       setSites(res.data);
     })

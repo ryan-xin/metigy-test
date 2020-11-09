@@ -45,7 +45,7 @@ app.get('/keywords', (req, res) => {
 });
 
 // Create Keyword
-app.post('/keywords/create', (req, res) => {
+app.post('/keywords', (req, res) => {
   const sql = `INSERT INTO Keyword (word) VALUES ('${req.body.word}')`;
   pool.query(sql, (err, result) => {
     if (err) {
@@ -61,8 +61,8 @@ app.post('/keywords/create', (req, res) => {
 });
 
 // Delete Keyword
-app.post('/keywords/delete', (req, res) => {
-  const sql = `DELETE FROM Keyword WHERE id = ${req.body.id}`;
+app.post('/keywords/:id/delete', (req, res) => {
+  const sql = `DELETE FROM Keyword WHERE id = ${req.params.id}`;
   pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
@@ -89,7 +89,7 @@ app.get('/sites', (req, res) => {
 });
 
 // Create Site
-app.post('/sites/create', (req, res) => {
+app.post('/sites', (req, res) => {
   const sql = `INSERT INTO Site (url) VALUES ('${req.body.url}')`;
   pool.query(sql, (err, result) => {
     if (err) {
@@ -105,8 +105,8 @@ app.post('/sites/create', (req, res) => {
 });
 
 // Delete Site
-app.post('/sites/delete', (req, res) => {
-  const sql = `DELETE FROM Site WHERE id = ${req.body.id}`;
+app.post('/sites/:id/delete', (req, res) => {
+  const sql = `DELETE FROM Site WHERE id = ${req.params.id}`;
   pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
@@ -123,21 +123,22 @@ app.post('/sites/delete', (req, res) => {
 /* ------------------- Settings Route ------------------- */
 
 // Read Setting
-app.get('/settings', (req, res) => {
-  pool.query('SELECT * FROM Setting', (err, result, fields) => {
+app.get('/settings/:id', (req, res) => {
+  console.log(req.params.id);
+  const sql = `SELECT * FROM Setting WHERE id = '${req.params.id}'`;
+  pool.query(sql, (err, result, fields) => {
     if (err) {
       return console.log(err);
     }
     const settings = JSON.parse(result[0].data);
-    const settings_id = result[0].id;
-    res.json({settings, settings_id});
+    res.json(settings);
   });
 });
 
 // Update Setting
-app.post('/settings/edit', (req, res) => {
+app.post('/settings/:id/edit', (req, res) => {
   const settings = JSON.stringify(req.body.settings)
-  const sql = `UPDATE Setting SET data = '${settings}' WHERE id = '${req.body.id}'`;
+  const sql = `UPDATE Setting SET data = '${settings}' WHERE id = '${req.params.id}'`;
   pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);

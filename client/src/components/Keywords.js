@@ -39,7 +39,7 @@ const Keywords = () => {
   // Save new keyword to database
   const handleSubmit = (e) => {
     if (newKeyword !== '') {
-      axios.post(`${KEYWORDS_URL}/create`, {
+      axios.post(KEYWORDS_URL, {
         word: newKeyword
       })
       .then(res => {
@@ -52,9 +52,7 @@ const Keywords = () => {
   
   // Remove keyword to database
   const handleClear = (id) => {
-    axios.post(`${KEYWORDS_URL}/delete`, {
-      id: id // In backend find with id and then delete
-    })
+    axios.post(`${KEYWORDS_URL}/${id}/delete`)
     .then(res => {
       setKeywords(res.data);
     })

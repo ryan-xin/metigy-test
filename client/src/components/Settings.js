@@ -127,10 +127,12 @@ const useStyles = makeStyles({
 });
 
 const Settings = () => {
+  // Hard code setting id
+  const settingsID = 1;
+  
   const SETTINGS_URL = 'http://localhost:8000/settings';
   
   const [settings, setSettings] = useState(undefined);
-  const [settingsID, setSettingsID] = useState(0);
   
   // Update checkbox state
   const handleCheckbox = (e) => {
@@ -149,14 +151,14 @@ const Settings = () => {
         document.getElementById(checkboxID).classList.add('blue-border-checked');
       }
     } else if (currentChecked === false) {
-        // When unchecked remove checked class name
-        if (sectionName === 'browsers') {
-          document.getElementById(checkboxID).classList.remove('yellow-border-checked');
-        } else if (sectionName === 'modes') {
-          document.getElementById(checkboxID).classList.remove('green-border-checked');
-        } else if (sectionName === 'actions') {
-          document.getElementById(checkboxID).classList.remove('blue-border-checked');
-        }
+      // When unchecked remove checked class name
+      if (sectionName === 'browsers') {
+        document.getElementById(checkboxID).classList.remove('yellow-border-checked');
+      } else if (sectionName === 'modes') {
+        document.getElementById(checkboxID).classList.remove('green-border-checked');
+      } else if (sectionName === 'actions') {
+        document.getElementById(checkboxID).classList.remove('blue-border-checked');
+      }
     }
     // Update settings state
     setSettings({...settings, [sectionName]: {...settings[sectionName], [targetName]: currentChecked}});
@@ -200,10 +202,9 @@ const Settings = () => {
   
   // Start function and save setting data to backend
   const handleStartClick = () => {
-    alert('Setting data saved!');
-    axios.post(`${SETTINGS_URL}/edit`, {
-      settings: settings,
-      id: settingsID
+    alert('Setting data saved! You could reload the page.');
+    axios.post(`${SETTINGS_URL}/${settingsID}/edit`, {
+      settings: settings
     })
     .then(res => {
       setSettings(res.data);
@@ -213,10 +214,10 @@ const Settings = () => {
   
   // Get setting data from backend
   useEffect(() => {
-    axios.get(SETTINGS_URL)
+    axios.get(`${SETTINGS_URL}/${settingsID}`
+    )
     .then(res => {
-      setSettings(res.data.settings); // Save setting to settings
-      setSettingsID(res.data.settings_id); // Save setting id to settingsID
+      setSettings(res.data); // Save setting to settings
     })
     .catch(err => console.log(err));
   }, []);
