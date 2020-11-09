@@ -8,7 +8,6 @@ const pool = mysql.createPool({
 
 // Read Setting
 const getSetting = (req, res) => {
-  console.log(req.params.id);
   const sql = `SELECT * FROM Setting WHERE id = '${req.params.id}'`;
   pool.query(sql, (err, result, fields) => {
     if (err) {

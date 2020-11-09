@@ -29,13 +29,13 @@ const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <Grid container xs={11} spacing={3} className={classes.mainContainer}>
-        <Grid item xs={3}>
+        <Grid item lg={3} md={6} sm={12}>
           <Keywords />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item lg={3} md={6} sm={12}>
           <Sites />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item lg={6} md={12} sm={12}>
           <Settings />
         </Grid>
       </Grid>

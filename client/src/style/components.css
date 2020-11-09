@@ -152,3 +152,27 @@ input[type="number"]::-webkit-inner-spin-button {
 .blue-border-checked {
   border: 1px solid #0086F9;
 }
+
+/* -------------------- Small Desktop ------------------- */
+
+@media screen and (max-width: 1670px) {
+  .browser-container {
+    width: 70%;
+  }
+
+  .incognito-container {
+    width: 30%;
+  }
+}
+
+/* ----------------------- Mobiel ----------------------- */
+
+@media screen and (max-width: 615px) {
+  .browser-container {
+    width: 100%;
+  }
+
+  .incognito-container {
+    width: 100%;
+  }
+}
