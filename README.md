@@ -22,8 +22,8 @@ To bring the project down, run:
 
 ### 2. Usage
 
-Front-end : http://localhost:3000/
-phpMyAdmin : http://localhost:8080/
+- Front-end : http://localhost:3000/
+- phpMyAdmin : http://localhost:8080/
 
 ### 3. To Do List
 
