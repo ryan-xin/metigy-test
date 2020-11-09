@@ -15,6 +15,12 @@ To bring the project up, run:
 ``` 
  $ docker-compose up
  ```
+ 
+Before open front-end, run:
+``` 
+ $ cd server
+ $ npm install
+ ```
 
 To bring the project down, run:
 ``` 
