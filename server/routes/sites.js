@@ -6,9 +6,9 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 });
 
-// Read Keyword
-const getKeyword = (req, res) => {
-  pool.query('SELECT * FROM Keyword', (err, result, fields) => {
+// Read Site
+const getSite = (req, res) => {
+  pool.query('SELECT * FROM Site', (err, result, fields) => {
     if (err) {
       return console.log(err);
     }
@@ -16,14 +16,14 @@ const getKeyword = (req, res) => {
   });
 };
 
-// Create Keyword
-const createKeyword = (req, res) => {
-  const sql = `INSERT INTO Keyword (word) VALUES ('${req.body.word}')`;
+// Create Site
+const createSite = (req, res) => {
+  const sql = `INSERT INTO Site (url) VALUES ('${req.body.url}')`;
   pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    pool.query('SELECT * FROM Keyword', (err, result, fields) => {
+    pool.query('SELECT * FROM Site', (err, result, fields) => {
       if (err) {
         return console.log(err);
       }
@@ -32,14 +32,14 @@ const createKeyword = (req, res) => {
   });
 };
 
-// Delete Keyword
-const deleteKeyword = (req, res) => {
-  const sql = `DELETE FROM Keyword WHERE id = ${req.params.id}`;
+// Delete Site
+const deleteSite = (req, res) => {
+  const sql = `DELETE FROM Site WHERE id = ${req.params.id}`;
   pool.query(sql, (err, result) => {
     if (err) {
       return console.log(err);
     }  
-    pool.query('SELECT * FROM Keyword', (err, result, fields) => {
+    pool.query('SELECT * FROM Site', (err, result, fields) => {
       if (err) {
         return console.log(err);
       }
@@ -48,4 +48,4 @@ const deleteKeyword = (req, res) => {
   });  
 };
 
-module.exports = { getKeyword, createKeyword, deleteKeyword };
+module.exports = { getSite, createSite, deleteSite };
