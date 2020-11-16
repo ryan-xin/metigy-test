@@ -36,6 +36,6 @@ To bring the project down, run:
 ### 3. To Do List
 
 - Error handling: back-end sends back error message to front-end and display with a popup window;
-- Code refactoring: create components for input field, checkbox etc. to DIY front-end code;
+- Code refactoring: create components for input field, checkbox etc. to DRY front-end code;
 - Data structure: create a more effective and meaningful data structure;
 - Responsive: improve responsive layout for some breakpoints to improve user experience;
