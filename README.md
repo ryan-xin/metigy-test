@@ -39,3 +39,4 @@ To bring the project down, run:
 - Code refactoring: create components for input field, checkbox etc. to DRY front-end code;
 - Data structure: create a more effective and meaningful data structure;
 - Responsive: improve responsive layout for some breakpoints to improve user experience;
+- Fix flash of uncompleted layout before getting data;
